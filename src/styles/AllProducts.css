@@ -1,0 +1,114 @@
+/* Sort container spacing */
+.sort-container {
+  font-size: 0.9rem;
+}
+
+/* Custom sort button */
+.custom-sort-btn {
+  background: #fff !important;
+  color: #000 !important;
+  border: 1px solid #ccc !important;
+  font-weight: 500;
+  padding: 4px 12px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+}
+
+/* On hover */
+.custom-sort-btn:hover,
+.custom-sort-btn:focus {
+  background: #f9f9f9 !important;
+  border-color: #aaa !important;
+  box-shadow: none !important;
+}
+
+/* Dropdown menu */
+.custom-sort-menu {
+  font-size: 0.9rem;
+  min-width: 200px;
+}
+
+.custom-sort-menu .dropdown-item {
+  padding: 6px 12px;
+}
+
+.custom-sort-menu .dropdown-item:hover {
+  background-color: #f2f2f2;
+}
+
+/* Sidebar box */
+.shopify-filters {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  padding: 16px;
+  font-size: 0.9rem;
+}
+
+/* Section titles */
+.shopify-filters .filter-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #111;
+}
+
+/* Checkbox group */
+.shopify-filters .filter-group .form-check {
+  margin-bottom: 8px;
+}
+
+.shopify-filters .form-check-input {
+  border: 1px solid #ccc;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+}
+
+.shopify-filters .form-check-label {
+  margin-left: 6px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* Price inputs */
+.shopify-filters .filter-input {
+  max-width: 80px;
+  font-size: 0.85rem;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.shopify-filters span {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+
+/* Filter button */
+.custom-filter-btn {
+  background: #fff !important;
+  color: #000 !important;
+  border: 1px solid #ccc !important;
+  font-size: 0.9rem;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+/* Dropdown menu */
+.custom-filter-menu {
+  min-width: 220px;
+}
+
+.custom-filter-menu h6 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.filter-input {
+  max-width: 80px;
+  font-size: 0.85rem;
+  padding: 4px 6px;
+}
+

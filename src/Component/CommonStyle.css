@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  padding-top: 100px; /* space for fixed navbar */
   width: 100%;
   min-height: 100vh;
   background-color: #000 !important; /* full black background */
@@ -16,6 +17,11 @@ section, header, footer, .container, .custom-carousel, .home-page {
 
 .custom-navbar {
   border-bottom: 1px solid #444; /* Optional separator */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1050;
 }
 
 .nav-link-custom {
@@ -424,4 +430,57 @@ section, header, footer, .container, .custom-carousel, .home-page {
   }
 }
 
+/* Dropdown Styling */
+/* Dropdown Styling with Transition */
+.nav-item {
+  position: relative;
+}
 
+.custom-dropdown {
+  display: block;
+  position: absolute;
+  margin-top: 5px;
+  top: 100%;
+  left: 0;
+  background: #111;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 0;
+  min-width: 100px;
+  z-index: 999;
+
+  /* Hide by default */
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover .custom-dropdown {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.custom-dropdown .dropdown-item {
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  padding: 5px 0;
+  transition: color 0.2s ease;
+  text-align: center;
+  background: transparent !important; /* ensure no bg always */
+}
+
+.custom-dropdown .dropdown-item:hover {
+  color: #f0ad4e;
+  background: transparent;
+}
+
+.custom-dropdown .dropdown-item:hover,
+.custom-dropdown .dropdown-item:active,
+.custom-dropdown .dropdown-item:focus {
+  color: #f0ad4e !important;  /* gold highlight */
+  background: transparent !important;
+}
