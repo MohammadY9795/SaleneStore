@@ -1,0 +1,57 @@
+:root { --mm-dark: #000; --mm-light: #fff; }
+body { background-color: #000; color: #fff; }
+
+/* Header */
+.mm-navbar { background-color: #000; }
+.mm-navbar .nav-link, .mm-navbar .navbar-brand { color: #fff; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
+.mm-navbar .nav-link:hover, .mm-navbar .navbar-brand:hover { color: #f8f9fa; }
+.mm-navbar .dropdown-menu { background: #111; border: 1px solid #222; }
+.mm-navbar .dropdown-item { color: #fff; }
+.mm-navbar .dropdown-item:hover { background: #222; }
+
+/* Announcement Bar */
+.announcement-bar { background: #000; color: #fff; border: 0; }
+.announcement-marquee { overflow: hidden; white-space: nowrap; position: relative; }
+.announcement-marquee__track { display: inline-block; padding: 8px 0; animation: marquee 18s linear infinite; }
+@keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+/* Hero Slideshow */
+.hero-slide img { width: 100%; height: auto; display: block; object-fit: cover; }
+.hero-slide { background: #000; }
+
+/* Rich Text */
+.richtext-section { padding: 100px 0; background-color: #0b0b0b; }
+.richtext-content { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.richtext-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
+.richtext-body p { font-size: 18px; line-height: 1.6; margin: 0; }
+
+/* Product Carousel (cards with hover image) */
+.mm-products { background: #000; padding: 50px 0 100px; }
+.mm-products__title { text-align: center; font-size: 26px; margin-bottom: 40px; }
+.product-card { background: #000; color: #fff; border: 1px solid #222; border-radius: .5rem; overflow: hidden; transition: transform .2s ease; }
+.product-card:hover { transform: translateY(-2px); }
+.product-img-wrap { position: relative; width: 100%; padding-top: 125%; /* 4:5 */ overflow: hidden; }
+.product-img, .product-img--hover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .25s ease; }
+.product-img--hover { opacity: 0; }
+.product-card:hover .product-img--hover { opacity: 1; }
+.product-card:hover .product-img { opacity: 0; }
+
+/* Double image/text blocks */
+.double-section { background: #000; padding: 50px 0; }
+.double-img { width: 100%; border-radius: .5rem; }
+.double-kicker { letter-spacing: .08em; font-weight: 700; opacity: .9; }
+.double-title { font-weight: 800; margin: 12px 0 16px; }
+.double-body { font-size: 18px; line-height: 1.5; }
+
+/* Buttons (Bootstrap-based look, small radius) */
+.btn-mm-white { border-radius: .25rem; background: #fff; color: #000; border: 0; font-weight: 700; }
+.btn-mm-white:hover { filter: brightness(.9); color: #000; }
+.btn-mm-outline { border-radius: .25rem; border: 1px solid #fff; color: #fff; background: transparent; font-weight: 700; }
+.btn-mm-outline:hover { background: #fff; color: #000; }
+
+/* Utilities */
+.mm-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* Responsive tweaks */
+@media (min-width: 900px) { .hero-slide .carousel-caption { margin-top: 250px; } }
+@media (max-width: 900px) { .hero-slide .carousel-caption { margin-top: 185px; } }

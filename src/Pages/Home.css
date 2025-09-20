@@ -1,0 +1,18 @@
+.home-page {
+  background-color: #121212;
+}
+
+.video-banner {
+  height: 500px;
+  overflow: hidden;
+}
+
+.banner-thumbnail,
+.banner-video {
+  object-fit: cover;
+  height: 100%;
+}
+
+.mute-toggle-btn {
+  z-index: 10;
+}

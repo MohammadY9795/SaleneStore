@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+body.dark-mode {
+  background-color: #181818; /* softer dark tone for body */
+  color: white;
+}
+
+body.light-mode {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.custom-navbar {
+  background-color: #1f1f1f !important; /* deep dark for navbar */
+  border-bottom: 1px solid #333;
+}
+
+.footer {
+  background-color: #1f1f1f !important;
+  color: #bbb;
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+  border-top: 1px solid #333;
+}
+
+.footer a {
+  color: #bbb;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: white;
+}
+
+.theme-toggle-btn {
+  transition: transform 0.3s ease, color 0.3s ease;
+  color: white;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.15);
+  color: #f0ad4e !important; /* gold tone for elegance */
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease; /* subtle press effect */
+}
