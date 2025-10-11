@@ -24,14 +24,14 @@ export default function ProductPage() {
   const [size, setSize] = useState(product?.sizes[0] || "");
   const [activeTab, setActiveTab] = useState(null);
   const [currentReviewPage, setCurrentReviewPage] = useState(1);
-const reviewsPerPage = 5;
-const totalPages = Math.ceil(product.reviews.length / reviewsPerPage);
-const currentReviews = product.reviews.slice(
-  (currentReviewPage - 1) * reviewsPerPage,
-  currentReviewPage * reviewsPerPage
-);
+  const reviewsPerPage = 5;
+  const totalPages = Math.ceil(product.reviews.length / reviewsPerPage);
+  const currentReviews = product.reviews.slice(
+    (currentReviewPage - 1) * reviewsPerPage,
+    currentReviewPage * reviewsPerPage
+  );
 
-console.log("Total Pages:", totalPages);
+  console.log("Total Pages:", totalPages);
 
 
 
@@ -368,7 +368,7 @@ console.log("Total Pages:", totalPages);
                           className="progress-bar bg-warning"
                           style={{
                             width: `${(product.reviews.filter((r) => r.rating === star).length /
-                                product.reviews.length) *
+                              product.reviews.length) *
                               100 || 0
                               }%`,
                           }}
@@ -476,26 +476,26 @@ console.log("Total Pages:", totalPages);
             )}
 
             <div className="d-flex justify-content-center mt-4">
-  {Array.isArray(product.reviews) && product.reviews.length > 0 && (
-    <PaginationComponent
-      currentPage={currentReviewPage}
-      totalPages={totalPages}
-      onPageChange={setCurrentReviewPage}
-      maxVisiblePages={5}
-    />
-  )}
-</div>
+              {Array.isArray(product.reviews) && product.reviews.length > 0 && (
+                <PaginationComponent
+                  currentPage={currentReviewPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentReviewPage}
+                  maxVisiblePages={5}
+                />
+              )}
+            </div>
 
-<div>
-  <AccordionComponent />
-</div>
+            <div>
+              <AccordionComponent />
+            </div>
           </Container>
         </section>
       </div>
-<ImageStrip />
-<ConcentrationCounters />
-<RightWayToApplyPerfume />
-<RelatedProducts currentSlug={slug} />
+      <ImageStrip />
+      <RightWayToApplyPerfume />
+      <ConcentrationCounters />
+      <RelatedProducts currentSlug={slug} />
     </main>
   );
 }
