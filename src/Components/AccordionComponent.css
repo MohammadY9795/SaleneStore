@@ -1,0 +1,70 @@
+.accordion-container {
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  color: #fff;
+  /* background-color: #121212; */
+  font-family: "Poppins", sans-serif;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.accordion-section {
+  border-bottom: 1px solid #fff;
+  cursor: pointer;
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer; user-select: none;
+}
+
+.accordion-header:hover {
+  color: #ccc;
+}
+
+.accordion-icon {
+  display: inline-block; /* ensures transform works consistently */
+  transition: transform 0.25s ease, color 0.2s ease;
+}
+
+.accordion-section.open .accordion-icon,
+.accordion-icon.expanded {
+  transform: rotate(180deg); /* rotates + into × */
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 0; /* keep horizontal padding if needed: padding: 0 0; */
+  transition: max-height 0.45s cubic-bezier(.2,.8,.2,1), padding 0.3s ease;
+}
+.accordion-section.open .accordion-content,
+.accordion-content.expanded {
+  max-height: 1000px; /* big enough to fit most content */
+  padding: 0.8rem 0;
+}
+
+.accordion-section .accordion-content * {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.accordion-section.open .accordion-content *,
+.accordion-content.expanded * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Add this new class for expanded content */
+.accordion-section.open .accordion-content {
+  max-height: 300px; /* adjust as per your content height */
+  padding: 0.8rem 0;
+}
+

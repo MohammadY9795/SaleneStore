@@ -1,0 +1,67 @@
+.background-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 0;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  background-image: url('https://cdn.shopify.com/s/files/1/0878/6981/7120/files/right_way_to_use_f9760a03-5d0d-4cbf-ac82-bc84c4b6898b.png?v=1724763889');
+}
+
+@media (max-width: 900px) {
+  .background-section {
+    background-image: url('https://cdn.shopify.com/s/files/1/0878/6981/7120/files/right_way_to_use_ms.png?v=1724763888');
+  }
+  .caption-text {
+    font-size: 30px !important;
+    margin-top: 400px;
+  }
+  .overlay-images img {
+    max-width: 80% !important;
+    height: auto;
+    margin-bottom: 20px;
+  }
+}
+
+.overlay-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.overlay-images img {
+  max-width: 60%;
+  height: auto;
+  margin-bottom: 20px;
+  opacity: 0;
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.caption-text {
+  color: white;
+  font-size: 50px;
+}
+
+/* Fade-in animation */
+.fade-in {
+  opacity: 1;
+}
+
+/* Slide-in animations */
+.slide-in-left {
+  transform: translateX(-100%);
+}
+.slide-in-right {
+  transform: translateX(100%);
+}
+
+.fade-in .slide-in-left,
+.fade-in .slide-in-right {
+  transform: translateX(0);
+  opacity: 1;
+}
