@@ -3,12 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home';
 import Catalogue from './Pages/Catalogue';
 import Cart from './Pages/Cart';
-import Checkout from './Pages/Checkout';
+import CheckoutPage from './Pages/CheckoutPage';
 import NavbarComponent from './Component/NavbarComponent';
 import Footer from './Component/Footer';
 import './App.css';
 import AllProductsPage from './Pages/AllProducts';
 import ProductPage from './Pages/Product/ProductPage';
+import ContactPage from './Pages/ContactPage';
+import AboutPage from './Pages/AboutPage';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -33,7 +35,9 @@ const App = () => {
           <Route path="/catalogue" element={<Catalogue />} />
           <Route path="/product/:slug" element={<ProductPage />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
+          {/* <Route path="/checkout" element={<CheckoutPage />} /> */}
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
       </main>
       <Footer />
