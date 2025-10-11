@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home';
 import Catalogue from './Pages/Catalogue';
-import ProductDetail from './Pages/ProductDetail';
 import Cart from './Pages/Cart';
 import Checkout from './Pages/Checkout';
 import NavbarComponent from './Component/NavbarComponent';
 import Footer from './Component/Footer';
 import './App.css';
+import AllProductsPage from './Pages/AllProducts';
+import ProductPage from './Pages/Product/ProductPage';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -28,8 +29,9 @@ const App = () => {
       <main className="container my-4">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<AllProductsPage />} />
           <Route path="/catalogue" element={<Catalogue />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/product/:slug" element={<ProductPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
         </Routes>

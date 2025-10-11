@@ -1,0 +1,145 @@
+/* Sort container spacing */
+.sort-container {
+  font-size: 0.9rem;
+}
+
+/* General dropdown button */
+.custom-filter-btn,
+.custom-sort-btn {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #fff !important;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.custom-filter-btn:hover,
+.custom-sort-btn:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.custom-filter-btn::after,
+.custom-sort-btn::after {
+  margin-left: 4px;
+  vertical-align: middle;
+  border-top: 4px solid #fff; /* small caret */
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+/* Dropdown menu styling (Glassmorphism + slide animations) */
+.custom-filter-menu,
+.custom-sort-menu {
+  background: rgba(20, 20, 20, 0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  min-width: 220px;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  transition: opacity 0.3s ease, transform 0.35s ease;
+}
+
+/* Filter slides from LEFT */
+.custom-filter-menu {
+  transform: translateX(-20px);
+  opacity: 0;
+  pointer-events: none;
+}
+.custom-filter-menu.show {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* Sort slides from RIGHT */
+.custom-sort-menu {
+  transform: translateX(20px);
+  opacity: 0;
+  pointer-events: none;
+}
+.custom-sort-menu.show {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* Dropdown items */
+.custom-sort-menu .dropdown-item,
+.custom-filter-menu .dropdown-item {
+  color: #ddd;
+  font-size: 13px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.custom-sort-menu .dropdown-item:hover,
+.custom-filter-menu .dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* Section headers inside filter menu */
+.custom-filter-menu h6 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ddd;
+  margin-bottom: 6px;
+}
+
+/* Filter inputs */
+.filter-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 13px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  max-width: 80px;
+}
+
+.filter-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: #777;
+  box-shadow: none;
+}
+
+/* Checkboxes */
+.custom-filter-menu .form-check-input {
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+}
+
+.custom-filter-menu .form-check-input:checked {
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.custom-filter-menu .form-check-label {
+  color: #eee;
+  font-size: 0.9rem;
+  margin-left: 6px;
+}
+
+/* Sort container text */
+.sort-container span {
+  font-size: 11px;
+  color: #999;
+  text-transform: uppercase;
+}
