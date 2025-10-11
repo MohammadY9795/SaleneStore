@@ -1,0 +1,22 @@
+.image-strip {
+  /* background-color: #151517; */
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.image-strip img {
+  max-width: 100px;
+  height: 60px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.image-strip img.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

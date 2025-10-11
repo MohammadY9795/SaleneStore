@@ -1,0 +1,115 @@
+.related-products-section {
+  background-color: #111;
+  color: white;
+}
+
+.related-products-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+/* Flex grid for products */
+.related-products-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* tight spacing */
+  margin-left: 40px;
+    margin-right: 40px;
+}
+
+.related-product-card {
+  flex: 1 1 calc(25% - 0.5rem); /* 4 per row by default */
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.related-product-card:hover {
+  transform: scale(1.03);
+}
+
+.related-product-image {
+  width: 80%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.related-product-card:hover .related-product-image {
+  transform: scale(1.05);
+}
+
+/* Badges */
+.badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.4rem;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.sale-badge {
+  background-color: #e53935;
+  color: white;
+}
+
+.soldout-badge {
+  background-color: #555;
+  color: white;
+}
+
+.related-product-info {
+  padding: 0.5rem 0;
+}
+
+.product-name {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.product-price {
+  font-size: 0.9rem;
+}
+
+.new-price {
+  color: #e53935;
+  font-weight: bold;
+  margin-right: 0.25rem;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* RESPONSIVE STYLING */
+
+/* Tablets: 2 products per row */
+@media (max-width: 1024px) {
+  .related-product-card {
+    flex: 1 1 calc(50% - 0.5rem);
+  }
+}
+
+/* Mobile: 1 product per row */
+@media (max-width: 640px) {
+  .related-product-card {
+    flex: 1 1 100%;
+  }
+
+  .related-product-image {
+    height: 200px;
+  }
+}

@@ -1,0 +1,47 @@
+.yotpo-reviews-pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.yotpo-reviews-pagination-item {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.yotpo-reviews-pagination-item svg {
+  fill: white;
+}
+
+.yotpo-pagination-number.selected {
+  background: white;
+  color: black;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+.yotpo-pagination-number:hover {
+  background: #333;
+  color: white;
+  border-radius: 50%;
+}
+
+.yotpo-reviews-pagination-item.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.dots {
+  color: #ccc;
+  font-size: 14px;
+  padding: 0 4px;
+}
