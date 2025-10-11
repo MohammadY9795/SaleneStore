@@ -13,12 +13,12 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
         <Row className="align-items-center text-center">
           {/* Left Menu + Theme Toggle */}
           <Col md={4} className="d-flex justify-content-start ps-4 gap-4 align-items-center">
-            <button
+            {/* <button
               onClick={toggleDarkMode}
               className="theme-toggle-btn btn btn-link text-white p-0 border-0"
             >
               {darkMode ? <BsSun size={22} /> : <BsMoon size={22} />}
-            </button>
+            </button> */}
             
             <Link to="/" className="nav-link-custom">HOME</Link>
 

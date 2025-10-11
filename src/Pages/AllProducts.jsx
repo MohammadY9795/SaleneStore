@@ -1,6 +1,7 @@
 import { Container, Row, Col, Card, Dropdown, Form } from "react-bootstrap";
 import React, { useState } from "react";
 import "../styles/AllProducts.css";
+import { Funnel } from "react-bootstrap-icons";
 
 const mockProducts = [
   {
@@ -99,8 +100,8 @@ const AllProductsPage = () => {
           <Col className="d-flex justify-content-start">
             <Dropdown>
               <Dropdown.Toggle className="custom-filter-btn">
-                Filter
-              </Dropdown.Toggle>
+  <Funnel size={14} /> Show Filters
+</Dropdown.Toggle>
               <Dropdown.Menu className="custom-filter-menu p-3">
                 <h6 className="mb-2">Availability</h6>
                 <Form.Check type="checkbox" id="in-stock" label="In Stock (3)" />
@@ -123,11 +124,11 @@ const AllProductsPage = () => {
           {/* Sort Dropdown (right) */}
           <Col className="d-flex justify-content-end">
             <div className="d-flex align-items-center sort-container">
-              <span className="me-2 text-muted small">Sort by:</span>
+              <span className="me-2">Sort By</span>
               <Dropdown>
-                <Dropdown.Toggle className="custom-sort-btn">
-                  {sortLabel}
-                </Dropdown.Toggle>
+                 <Dropdown.Toggle className="custom-sort-btn">
+      {sortLabel}
+    </Dropdown.Toggle>
                 <Dropdown.Menu className="custom-sort-menu">
                   <Dropdown.Item onClick={() => handleSort("manual")}>
                     Featured

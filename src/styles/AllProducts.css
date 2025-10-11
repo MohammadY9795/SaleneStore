@@ -3,112 +3,143 @@
   font-size: 0.9rem;
 }
 
-/* Custom sort button */
+/* General dropdown button */
+.custom-filter-btn,
 .custom-sort-btn {
-  background: #fff !important;
-  color: #000 !important;
-  border: 1px solid #ccc !important;
-  font-weight: 500;
-  padding: 4px 12px;
-  font-size: 0.9rem;
-  border-radius: 4px;
-}
-
-/* On hover */
-.custom-sort-btn:hover,
-.custom-sort-btn:focus {
-  background: #f9f9f9 !important;
-  border-color: #aaa !important;
-  box-shadow: none !important;
-}
-
-/* Dropdown menu */
-.custom-sort-menu {
-  font-size: 0.9rem;
-  min-width: 200px;
-}
-
-.custom-sort-menu .dropdown-item {
-  padding: 6px 12px;
-}
-
-.custom-sort-menu .dropdown-item:hover {
-  background-color: #f2f2f2;
-}
-
-/* Sidebar box */
-.shopify-filters {
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: 6px;
-  padding: 16px;
-  font-size: 0.9rem;
-}
-
-/* Section titles */
-.shopify-filters .filter-title {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #fff !important;
+  font-size: 12px;
   font-weight: 600;
-  font-size: 0.95rem;
-  color: #111;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
-/* Checkbox group */
-.shopify-filters .filter-group .form-check {
-  margin-bottom: 8px;
+.custom-filter-btn:hover,
+.custom-sort-btn:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
 }
 
-.shopify-filters .form-check-input {
-  border: 1px solid #ccc;
+.custom-filter-btn::after,
+.custom-sort-btn::after {
+  margin-left: 4px;
+  vertical-align: middle;
+  border-top: 4px solid #fff; /* small caret */
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+/* Dropdown menu styling (Glassmorphism + slide animations) */
+.custom-filter-menu,
+.custom-sort-menu {
+  background: rgba(20, 20, 20, 0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  min-width: 220px;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  transition: opacity 0.3s ease, transform 0.35s ease;
+}
+
+/* Filter slides from LEFT */
+.custom-filter-menu {
+  transform: translateX(-20px);
+  opacity: 0;
+  pointer-events: none;
+}
+.custom-filter-menu.show {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* Sort slides from RIGHT */
+.custom-sort-menu {
+  transform: translateX(20px);
+  opacity: 0;
+  pointer-events: none;
+}
+.custom-sort-menu.show {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* Dropdown items */
+.custom-sort-menu .dropdown-item,
+.custom-filter-menu .dropdown-item {
+  color: #ddd;
+  font-size: 13px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.custom-sort-menu .dropdown-item:hover,
+.custom-filter-menu .dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* Section headers inside filter menu */
+.custom-filter-menu h6 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ddd;
+  margin-bottom: 6px;
+}
+
+/* Filter inputs */
+.filter-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 13px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  max-width: 80px;
+}
+
+.filter-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: #777;
+  box-shadow: none;
+}
+
+/* Checkboxes */
+.custom-filter-menu .form-check-input {
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.6);
   width: 16px;
   height: 16px;
   margin-top: 3px;
 }
 
-.shopify-filters .form-check-label {
+.custom-filter-menu .form-check-input:checked {
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.custom-filter-menu .form-check-label {
+  color: #eee;
+  font-size: 0.9rem;
   margin-left: 6px;
-  font-size: 0.9rem;
-  color: #333;
 }
 
-/* Price inputs */
-.shopify-filters .filter-input {
-  max-width: 80px;
-  font-size: 0.85rem;
-  padding: 4px 6px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+/* Sort container text */
+.sort-container span {
+  font-size: 11px;
+  color: #999;
+  text-transform: uppercase;
 }
-
-.shopify-filters span {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-
-/* Filter button */
-.custom-filter-btn {
-  background: #fff !important;
-  color: #000 !important;
-  border: 1px solid #ccc !important;
-  font-size: 0.9rem;
-  padding: 4px 12px;
-  border-radius: 4px;
-}
-
-/* Dropdown menu */
-.custom-filter-menu {
-  min-width: 220px;
-}
-
-.custom-filter-menu h6 {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #111;
-}
-
-.filter-input {
-  max-width: 80px;
-  font-size: 0.85rem;
-  padding: 4px 6px;
-}
-
