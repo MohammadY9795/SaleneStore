@@ -1,16 +1,28 @@
 {
   "files": {
-    "main.css": "/salenestore/static/css/main.55b62ff0.css",
-    "main.js": "/salenestore/static/js/main.d593bd0a.js",
+    "main.css": "/salenestore/static/css/main.c0413b92.css",
+    "main.js": "/salenestore/static/js/main.97ebd6c7.js",
     "static/js/453.e5175979.chunk.js": "/salenestore/static/js/453.e5175979.chunk.js",
+    "static/media/vid.mp4": "/salenestore/static/media/vid.ed6ecb7aacf01db6438e.mp4",
+    "static/media/prdct4.png": "/salenestore/static/media/prdct4.e4b3d0e94af571ab5f76.png",
+    "static/media/prdct3.png": "/salenestore/static/media/prdct3.52b2675b70d201746f0e.png",
+    "static/media/prdct2.png": "/salenestore/static/media/prdct2.273c8aa130737ce8cd0e.png",
+    "static/media/prdct1.png": "/salenestore/static/media/prdct1.37e27461a24801a8c613.png",
+    "static/media/bootstrap-icons.woff?": "/salenestore/static/media/bootstrap-icons.1295669cd4e305c97f2c.woff",
+    "static/media/bootstrap-icons.woff2?": "/salenestore/static/media/bootstrap-icons.92ea18a81d737146ff04.woff2",
+    "static/media/fa-solid-900.woff2": "/salenestore/static/media/fa-solid-900.f54756da1f3d1b88887f.woff2",
+    "static/media/fa-brands-400.woff2": "/salenestore/static/media/fa-brands-400.1f6bad931d92a0a52c45.woff2",
     "static/media/SALENE_LOGO.png": "/salenestore/static/media/SALENE_LOGO.349134679bfb4468bf4a.png",
+    "static/media/ProductBanner.png": "/salenestore/static/media/ProductBanner.5a174fe194d036cea5db.png",
+    "static/media/fa-regular-400.woff2": "/salenestore/static/media/fa-regular-400.5632c43107f4d3fa4806.woff2",
+    "static/media/fa-v4compatibility.woff2": "/salenestore/static/media/fa-v4compatibility.24fc9d217708cb3f0362.woff2",
     "index.html": "/salenestore/index.html",
-    "main.55b62ff0.css.map": "/salenestore/static/css/main.55b62ff0.css.map",
-    "main.d593bd0a.js.map": "/salenestore/static/js/main.d593bd0a.js.map",
+    "main.c0413b92.css.map": "/salenestore/static/css/main.c0413b92.css.map",
+    "main.97ebd6c7.js.map": "/salenestore/static/js/main.97ebd6c7.js.map",
     "453.e5175979.chunk.js.map": "/salenestore/static/js/453.e5175979.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.55b62ff0.css",
-    "static/js/main.d593bd0a.js"
+    "static/css/main.c0413b92.css",
+    "static/js/main.97ebd6c7.js"
   ]
 }
