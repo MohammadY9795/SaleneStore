@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './Home.css';
 import bannerThumbnail from '../assets/images/ProductBanner.png';
-import bannerVideo from '../assets/videos/vid.mp4';
+import bannerVideo from '../assets/videos/SaleneVid.mp4';
 import ProductCarousel from '../Component/ProductCarousel';
 import { BsVolumeMute, BsVolumeUp } from 'react-icons/bs';
 import  prdct1  from "../assets/images/prdct1.png";
