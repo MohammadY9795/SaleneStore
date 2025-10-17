@@ -73,15 +73,16 @@ const Home = () => {
       videoRef.current.muted = newMuted;
     }
   };
+  const isMobileDevice = () => window.innerWidth <= 768;
 
   return (
     <>
     <div className="home-page bg-dark text-white">
       <div 
-        className="video-banner position-relative"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={() => setIsHovered(false)}
-      >
+  className="video-banner position-relative"
+  onMouseEnter={!isMobileDevice() ? handleMouseEnter : undefined}
+  onMouseLeave={!isMobileDevice() ? () => setIsHovered(false) : undefined}
+>
         {!isHovered && (
           <img 
             src={bannerThumbnail} 

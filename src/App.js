@@ -27,8 +27,8 @@ const App = () => {
   const toggleDarkMode = () => setDarkMode(prev => !prev);
 
   return (
-    <Router basename="/salenestore">
-      {/* // <Router > */}
+    // <Router basename="/salenestore">
+       <Router >
       <NavbarComponent toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
       <main className="container my-4">
         <Routes>
