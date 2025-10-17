@@ -2,7 +2,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { BsBag, BsMoon, BsSun } from 'react-icons/bs';
+import { BsBag, BsPerson } from 'react-icons/bs';
 import './CommonStyle.css';
 import Icon from '../assets/images/SALENE_LOGO.png';
 
@@ -11,15 +11,8 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
     <header className="custom-navbar bg-dark text-white py-1 px-2">
       <Container fluid>
         <Row className="align-items-center text-center">
-          {/* Left Menu + Theme Toggle */}
+          {/* Left Menu */}
           <Col md={4} className="d-flex justify-content-start ps-4 gap-4 align-items-center">
-            {/* <button
-              onClick={toggleDarkMode}
-              className="theme-toggle-btn btn btn-link text-white p-0 border-0"
-            >
-              {darkMode ? <BsSun size={22} /> : <BsMoon size={22} />}
-            </button> */}
-            
             <Link to="/" className="nav-link-custom">HOME</Link>
 
             {/* Shop Dropdown */}
@@ -47,10 +40,14 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
             <div className="logo-text">SALENE</div>
           </Col>
 
-          {/* Cart Icon Right */}
-          <Col md={4} className="d-flex justify-content-end pe-4">
-            <Link to="/cart" className="cart-icon">
+          {/* Right Icons (Cart + Profile) */}
+          <Col md={4} className="d-flex justify-content-end align-items-center pe-4 gap-4">
+            <Link to="/cart" className="cart-icon text-white">
               <BsBag size={24} />
+            </Link>
+
+            <Link to="/login" className="profile-icon text-white">
+              <BsPerson size={24} />
             </Link>
           </Col>
         </Row>

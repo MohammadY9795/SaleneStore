@@ -484,3 +484,14 @@ section, header, footer, .container, .custom-carousel, .home-page {
   color: #f0ad4e !important;  /* gold highlight */
   background: transparent !important;
 }
+
+.profile-icon,
+.cart-icon {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.profile-icon:hover,
+.cart-icon:hover {
+  color: #d4af37; /* Gold hover color */
+}
