@@ -11,6 +11,7 @@ import AllProductsPage from './Pages/AllProducts';
 import ProductPage from './Pages/Product/ProductPage';
 import ContactPage from './Pages/ContactPage';
 import AboutPage from './Pages/AboutPage';
+import LoginRegister from './Pages/LoginRegister';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -27,7 +28,7 @@ const App = () => {
 
   return (
     <Router basename="/salenestore">
-     {/* <Router > */}
+      {/* // <Router > */}
       <NavbarComponent toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
       <main className="container my-4">
         <Routes>
@@ -39,6 +40,7 @@ const App = () => {
           {/* <Route path="/checkout" element={<CheckoutPage />} /> */}
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/login" element={<LoginRegister />} />
         </Routes>
       </main>
       <Footer />
