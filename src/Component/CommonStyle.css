@@ -1,3 +1,10 @@
+/* Smaller header on mobile — adjust as needed */
+@media (max-width: 767.98px) {
+  :root { --site-header-height: 64px; }
+}
+
+/* ...existing code... */
+
 body {
   margin: 0;
   padding: 0;
@@ -226,7 +233,7 @@ section, header, footer, .container, .custom-carousel, .home-page {
 
 /* Announcement Bar Styles */
 .announcement-wrapper {
-  width: 100vw;
+  width: 100%;
   margin: 0;
   background: transparent; /* You can customize */
   overflow: hidden;
@@ -436,6 +443,82 @@ section, header, footer, .container, .custom-carousel, .home-page {
   position: relative;
 }
 
+/* Hamburger visuals */
+.hamburger-btn { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; }
+.hamburger-icon {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  position: relative;
+}
+.hamburger-icon::before,
+.hamburger-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+}
+.hamburger-icon::before { top: -7px; }
+.hamburger-icon::after { top: 7px; }
+
+/* Mobile sidebar & backdrop */
+.mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  pointer-events: none;
+  transition: background .2s ease;
+  z-index: 1040;
+}
+.mobile-backdrop.open {
+  background: rgba(0,0,0,0.5);
+  pointer-events: auto;
+}
+
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 260px;
+  max-width: 80%;
+  background: #111;
+  color: #fff;
+  transform: translateX(-110%);
+  transition: transform .25s ease;
+  z-index: 1050;
+  overflow-y: auto;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.4);
+}
+.mobile-sidebar.open { transform: translateX(0); }
+
+.sidebar-header img { display: block; }
+
+/* Sidebar links */
+.sidebar-links { padding-top: 8px; }
+.sidebar-link {
+  display: block;
+  color: #fff;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  text-decoration: none;
+}
+.sidebar-link:hover { color: #ddd; text-decoration: none; }
+
+.sidebar-section { margin-top: 8px; }
+.sidebar-title { color: #aaa; font-size: 12px; margin-top: 10px; margin-bottom: 6px; }
+
+/* Keep logo centered on all sizes */
+.custom-navbar .logo-text { font-weight: 700; letter-spacing: 1px; margin-top: -6px; }
+
+/* Ensure desktop dropdown stays functional */
+@media (min-width: 768px) {
+  .custom-dropdown { position: absolute; }
+}
+
 .custom-dropdown {
   display: block;
   position: absolute;
@@ -495,3 +578,59 @@ section, header, footer, .container, .custom-carousel, .home-page {
 .cart-icon:hover {
   color: #d4af37; /* Gold hover color */
 }
+
+
+/* Mobile fixes for carousel (viewport ~400px) */
+@media (max-width: 767.98px) {
+  .custom-carousel {
+    overflow: hidden; /* keep page from horizontal scroll while .items scrolls */
+  }
+
+  /* Give the items row a left padding so the first slide isn't flush / cropped */
+  .custom-carousel .items {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 10px 12px 14px 14px; /* top right bottom left - left padding prevents cropping */
+    scroll-padding-left: 14px;
+  }
+
+  /* Ensure slides are normal flow (neutralize desktop absolute/transform styles) */
+  .custom-carousel .item,
+  .custom-carousel .item.prev,
+  .custom-carousel .item.next,
+  .custom-carousel .item.active {
+    position: relative !important;
+    transform: none !important;
+    left: auto !important;
+    right: auto !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+  }
+
+  .custom-carousel .item {
+    flex: 0 0 78%;
+    min-width: 220px;
+    scroll-snap-align: center;
+    overflow: visible;
+  }
+
+  /* Make sure images never get cropped */
+  .custom-carousel .item img,
+  .custom-carousel .item .hover-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Small extra right padding so last slide isn't clipped by scrollbar area */
+  .custom-carousel .items::after {
+    content: "";
+    flex: 0 0 8px;
+  }
+}
+

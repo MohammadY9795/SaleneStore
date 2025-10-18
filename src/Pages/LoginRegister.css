@@ -1,6 +1,8 @@
 .login-register-page {
   /* background-color: #121212; */
   /* height: 100vh; */
+  padding-top: var(--site-header-height, 72px);
+  padding-top: 85px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -83,7 +83,7 @@ const AllProductsPage = () => {
   return (
     <main>
       {/* Banner */}
-      <section className="mb-4">
+      <section className="mb-4 all-products-banner">
         <Container fluid className="p-0">
           <img
             src="https://metaman.in/cdn/shop/files/Product_banner__2.jpg?v=1741590329&width=1080"

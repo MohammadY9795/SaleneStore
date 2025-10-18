@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CommonStyle.css";
+import "./Footer.css";
 import logo from "../assets/images/SALENE_LOGO.png";
 
 const Footer = () => {
