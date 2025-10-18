@@ -1,3 +1,10 @@
+/* Smaller header on mobile — adjust as needed */
+@media (max-width: 767.98px) {
+  :root { --site-header-height: 64px; }
+}
+
+/* ...existing code... */
+
 body {
   margin: 0;
   padding: 0;

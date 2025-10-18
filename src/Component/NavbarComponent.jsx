@@ -97,8 +97,8 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
             <Link to="/product/haio-alpha" className="sidebar-link" onClick={closeSidebar}>HAIO ALPHA</Link>
             <Link to="/product/haio-date" className="sidebar-link" onClick={closeSidebar}>HAIO DATE</Link>
             <Link to="/product/haio-day" className="sidebar-link" onClick={closeSidebar}>HAIO DAY</Link>
-            <Link to="/product/haio-sport" className="sidebar-link" onClick={closeSidebar}>HAIO SPORT</Link>
-            <Link to="/product/haio-night" className="sidebar-link" onClick={closeSidebar}>HAIO NIGHT</Link>
+            {/* <Link to="/product/haio-sport" className="sidebar-link" onClick={closeSidebar}>HAIO SPORT</Link>
+            <Link to="/product/haio-night" className="sidebar-link" onClick={closeSidebar}>HAIO NIGHT</Link> */}
           </div>
 
           <Link to="/about" className="sidebar-link" onClick={closeSidebar}>ABOUT US</Link>

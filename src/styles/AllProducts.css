@@ -143,3 +143,27 @@
   color: #999;
   text-transform: uppercase;
 }
+
+/* Ensure banner never crops on mobile; constrain height and keep full width */
+.all-products-banner {
+  padding-top: var(--site-header-height, 72px);
+  overflow: visible; /* don't clip children */
+}
+
+.all-products-banner img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important; /* keep full image visible */
+}
+
+/* On small screens limit banner height so it doesn't push/overflow layout */
+@media (max-width: 480px) {
+  .all-products-banner img {
+    max-height: none !important;
+  }
+}
+
+/* Slightly different behavior if you prefer a cover (fills width/height but crops):
+   replace object-fit: contain with object-fit: cover (not recommended here since you want no crop) */
