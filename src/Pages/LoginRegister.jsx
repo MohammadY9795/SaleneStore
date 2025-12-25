@@ -1,60 +1,73 @@
 import React, { useState } from "react";
 import "./LoginRegister.css";
-import { Form, Button } from "react-bootstrap";
-import logo from "../assets/images/SALENE_LOGO.png"; // replace with your logo path
+import logo from "../assets/images/SALENE_LOGO.png"; 
 
 const LoginRegister = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isRightPanelActive, setIsRightPanelActive] = useState(false);
 
-  const handleToggle = () => {
-    setIsLogin(!isLogin);
-  };
+  const handleSignUpClick = () => setIsRightPanelActive(true);
+  const handleSignInClick = () => setIsRightPanelActive(false);
 
   return (
-    <div className="login-register-page d-flex align-items-center justify-content-center text-white">
-      <div className="login-card p-4">
-        <div className="text-center mb-4" style={{marginTop: '-10px'}}>
-          <img src={logo} alt="SALENE Logo" className="salene-logo mb-2" />
-          <h2 className="gold-text fw-bold">{isLogin ? "Welcome Back" : "Join SALENE"}</h2>
-          <p className="text-muted">{isLogin ? "Luxury in Every Login" : "Sign up to discover timeless luxury"}</p>
+    <div className="login-register-page">
+      <div className={`container-slider ${isRightPanelActive ? "right-panel-active" : ""}`}>
+        
+        {/* --- REGISTER FORM (Moves to Right) --- */}
+        <div className="form-container sign-up-container">
+          <form className="form-wrapper">
+            <h2 className="gold-text">Create Account</h2>
+            <span className="text-muted small mb-3">Use your email for registration</span>
+            
+            <input type="text" placeholder="Name" required />
+            <input type="email" placeholder="Email" required />
+            <input type="password" placeholder="Password" required />
+            <input type="password" placeholder="Confirm Password" required />
+            
+            <button className="gold-border-btn">Sign Up</button>
+          </form>
         </div>
 
-        <Form>
-          {!isLogin && (
-            <Form.Group className="mb-3">
-              <Form.Label className="gold-text">Full Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter your name" />
-            </Form.Group>
-          )}
-          <Form.Group className="mb-3">
-            <Form.Label className="gold-text">Email</Form.Label>
-            <Form.Control type="email" placeholder="Enter your email" />
-          </Form.Group>
+        {/* --- LOGIN FORM (Starts on Left) --- */}
+        <div className="form-container sign-in-container">
+          <form className="form-wrapper">
+            {/* Added Logo Here */}
+            <img src={logo} alt="SALENE" className="salene-logo" />
+            <h2 className="gold-text">Sign in to SALENE</h2>
+            <span className="text-muted small mb-3">or use your email account</span>
+            
+            <input type="email" placeholder="Email" required />
+            <input type="password" placeholder="Password" required />
+            
+            <a href="#" className="text-muted small mt-2 text-decoration-none" style={{color: '#aaa', fontSize: '12px'}}>
+              Forgot your password?
+            </a>
+            <button className="gold-border-btn">Sign In</button>
+          </form>
+        </div>
 
-          <Form.Group className="mb-3">
-            <Form.Label className="gold-text">Password</Form.Label>
-            <Form.Control type="password" placeholder="Enter your password" />
-          </Form.Group>
+        {/* --- OVERLAY CONTAINER --- */}
+        <div className="overlay-container">
+          <div className="overlay">
+            
+            {/* Left Overlay (Shows when you need to switch to Login) */}
+            <div className="overlay-panel overlay-left">
+              <h2 className="gold-text-dark">Welcome Back!</h2>
+              <p className="text-description">To keep connected with us please login with your personal info</p>
+              <button className="dark-border-btn" onClick={handleSignInClick}>
+                Sign In
+              </button>
+            </div>
 
-          {!isLogin && (
-            <Form.Group className="mb-3">
-              <Form.Label className="gold-text">Confirm Password</Form.Label>
-              <Form.Control type="password" placeholder="Re-enter your password" />
-            </Form.Group>
-          )}
+            {/* Right Overlay (Shows when you need to switch to Sign Up) */}
+            <div className="overlay-panel overlay-right">
+              <h2 className="gold-text-dark">Hello, Friend!</h2>
+              <p className="text-description">Enter your personal details and start your journey of luxury</p>
+              <button className="dark-border-btn" onClick={handleSignUpClick}>
+                Sign Up
+              </button>
+            </div>
 
-          <Button variant="outline-light" className="w-100 mt-3 gold-border-btn">
-            {isLogin ? "Login" : "Register"}
-          </Button>
-        </Form>
-
-        <div className="text-center mt-3">
-          <small>
-            {isLogin ? "Don't have an account? " : "Already have an account? "}
-            <span className="gold-text toggle-link" onClick={handleToggle}>
-              {isLogin ? "Register" : "Login"}
-            </span>
-          </small>
+          </div>
         </div>
       </div>
     </div>
