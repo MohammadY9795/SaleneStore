@@ -16,10 +16,11 @@ const LoginRegister = () => {
         <div className="form-container sign-up-container">
           <form className="form-wrapper">
             <h2 className="gold-text">Create Account</h2>
-            <span className="text-muted small mb-3">Use your email for registration</span>
+            <span className="gold-text small mb-3">Use your email for registration</span>
             
             <input type="text" placeholder="Name" required />
             <input type="email" placeholder="Email" required />
+            <input type="number" placeholder="Phone Number" required />
             <input type="password" placeholder="Password" required />
             <input type="password" placeholder="Confirm Password" required />
             
@@ -32,16 +33,18 @@ const LoginRegister = () => {
           <form className="form-wrapper">
             {/* Added Logo Here */}
             <img src={logo} alt="SALENE" className="salene-logo" />
-            <h2 className="gold-text">Sign in to SALENE</h2>
-            <span className="text-muted small mb-3">or use your email account</span>
+            <h2 className="gold-text">Sign in to the world of SALENE</h2>
             
-            <input type="email" placeholder="Email" required />
-            <input type="password" placeholder="Password" required />
+            <label className="gold-text small" htmlFor="signin-email">Email / Phone</label>
+            <input id="signin-email" name="emailOrPhone" type="text" placeholder="Email or Phone" autoComplete="username" required aria-required="true" />
             
-            <a href="#" className="text-muted small mt-2 text-decoration-none" style={{color: '#aaa', fontSize: '12px'}}>
+            <label className="gold-text small" htmlFor="signin-password">Password</label>
+            <input id="signin-password" name="password" type="password" placeholder="Password" autoComplete="current-password" required aria-required="true" />
+            
+            <a href="#" className="text-muted small mt-2 text-decoration-none" style={{color: '#d4af37', fontSize: '12px'}}>
               Forgot your password?
             </a>
-            <button className="gold-border-btn">Sign In</button>
+            <button type="submit" className="gold-border-btn">Sign In</button>
           </form>
         </div>
 
@@ -51,8 +54,8 @@ const LoginRegister = () => {
             
             {/* Left Overlay (Shows when you need to switch to Login) */}
             <div className="overlay-panel overlay-left">
-              <h2 className="gold-text-dark">Welcome Back!</h2>
-              <p className="text-description">To keep connected with us please login with your personal info</p>
+              <h2 className="gold-text-dark">Already part of the story?</h2>
+              <p className="text-description">Sign in to continue your journey.</p>
               <button className="dark-border-btn" onClick={handleSignInClick}>
                 Sign In
               </button>
@@ -60,8 +63,9 @@ const LoginRegister = () => {
 
             {/* Right Overlay (Shows when you need to switch to Sign Up) */}
             <div className="overlay-panel overlay-right">
-              <h2 className="gold-text-dark">Hello, Friend!</h2>
-              <p className="text-description">Enter your personal details and start your journey of luxury</p>
+              <h2 className="gold-text-dark">Welcome back FRIEND!!</h2>
+              <p className="text-description">Your Signature Scent Awaits
+Log in to SALENE and rediscover the essence of elegance. We’re glad to have you back.</p>
               <button className="dark-border-btn" onClick={handleSignUpClick}>
                 Sign Up
               </button>

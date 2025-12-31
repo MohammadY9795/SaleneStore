@@ -206,14 +206,17 @@ input:-webkit-autofill:active{
 
 .text-description {
     font-size: 14px;
+    color: black;
     line-height: 1.5;
     margin-bottom: 20px;
     font-weight: 500;
 }
 
 .salene-logo {
-  width: 50px;
-  margin-bottom: 20px;
+  width: 140px;
+  height: auto;
+  /* margin-bottom: 20px; */
+  margin-top: -10px;
   filter: drop-shadow(0 0 5px rgba(212,175,55,0.5));
 }
 
