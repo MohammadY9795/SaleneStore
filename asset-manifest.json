@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/SaleneStore/static/css/main.093b730e.css",
-    "main.js": "/SaleneStore/static/js/main.9e3525b4.js",
+    "main.css": "/SaleneStore/static/css/main.a8602de3.css",
+    "main.js": "/SaleneStore/static/js/main.1e58a28c.js",
     "static/js/453.e5175979.chunk.js": "/SaleneStore/static/js/453.e5175979.chunk.js",
     "static/media/SaleneVid.mp4": "/SaleneStore/static/media/SaleneVid.fe9f3b2c9c945732e5e2.mp4",
     "static/media/prdct4.png": "/SaleneStore/static/media/prdct4.e4b3d0e94af571ab5f76.png",
@@ -17,12 +17,12 @@
     "static/media/fa-regular-400.woff2": "/SaleneStore/static/media/fa-regular-400.5632c43107f4d3fa4806.woff2",
     "static/media/fa-v4compatibility.woff2": "/SaleneStore/static/media/fa-v4compatibility.24fc9d217708cb3f0362.woff2",
     "index.html": "/SaleneStore/index.html",
-    "main.093b730e.css.map": "/SaleneStore/static/css/main.093b730e.css.map",
-    "main.9e3525b4.js.map": "/SaleneStore/static/js/main.9e3525b4.js.map",
+    "main.a8602de3.css.map": "/SaleneStore/static/css/main.a8602de3.css.map",
+    "main.1e58a28c.js.map": "/SaleneStore/static/js/main.1e58a28c.js.map",
     "453.e5175979.chunk.js.map": "/SaleneStore/static/js/453.e5175979.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.093b730e.css",
-    "static/js/main.9e3525b4.js"
+    "static/css/main.a8602de3.css",
+    "static/js/main.1e58a28c.js"
   ]
 }
