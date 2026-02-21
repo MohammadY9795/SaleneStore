@@ -1,5 +1,5 @@
 // ...existing code...
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { BsBag, BsPerson } from 'react-icons/bs';
@@ -9,15 +9,38 @@ import { useAuth } from '../context/AuthContext';
 
 const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const profileDropdownRef = useRef(null);
 
   const closeSidebar = () => setSidebarOpen(false);
   const toggleSidebar = () => setSidebarOpen(v => !v);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
+        setProfileDropdownOpen(false);
+      }
+    };
+
+    if (profileDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [profileDropdownOpen]);
+
   const handleLogout = () => {
     logout();
     closeSidebar();
+    navigate("/");
+  };
+
+  const handleProfileLogout = () => {
+    logout();
+    setProfileDropdownOpen(false);
     navigate("/");
   };
 
@@ -74,30 +97,57 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
 
           {/* Right icons - cart/profile (profile hidden on mobile) */}
           <Col xs={3} md={4} className="d-flex justify-content-end align-items-center pe-3 gap-2">
-            <Link to="/cart" className="cart-icon text-white">
-              <BsBag size={24} />
+            <Link to="/cart" className="cart-icon text-white navbar-icon-link">
+              <BsBag size={20} />
             </Link>
 
             {user ? (
-              <>
-                <Link
-                  to="/profile"
-                  className="profile-icon text-white d-none d-md-inline-flex"
+              <div className="profile-dropdown-container" ref={profileDropdownRef}>
+                <button
+                  onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+                  className="profile-icon text-white d-none d-md-inline-flex navbar-icon-button"
                   title="Profile"
                 >
-                  <BsPerson size={24} />
-                </Link>
-                <div className="d-none d-md-flex align-items-center text-white" style={{ fontSize: '12px', maxWidth: '80px' }}>
-                  <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Hi, {user.name.split(' ')[0]}</span>
-                </div>
-                <button
-                  onClick={handleLogout}
-                  className="btn btn-link text-white p-0 d-none d-md-inline-block"
-                  style={{ fontSize: '12px', textDecoration: 'none' }}
-                >
-                  Logout
+                  <BsPerson size={20} />
                 </button>
-              </>
+
+                {profileDropdownOpen && (
+                  <div className="profile-dropdown-menu">
+                    <div className="profile-dropdown-header">
+                      <h3 className="profile-dropdown-name">{user.name}</h3>
+                    </div>
+
+                    <div className="profile-dropdown-content">
+                      <div className="profile-info-item">
+                        <span className="profile-info-label">Email Address</span>
+                        <p className="profile-info-value">{user.email}</p>
+                      </div>
+
+                      <div className="profile-info-item">
+                        <span className="profile-info-label">Phone Number</span>
+                        <p className="profile-info-value">{user.phone}</p>
+                      </div>
+                    </div>
+
+                    <div className="profile-dropdown-actions">
+                      <Link
+                        to="/profile"
+                        className="btn-profile-details"
+                        onClick={() => setProfileDropdownOpen(false)}
+                      >
+                        Additional Details
+                      </Link>
+
+                      <button
+                        onClick={handleProfileLogout}
+                        className="btn-profile-logout"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             ) : (
               <Link to="/login" className="profile-icon text-white d-none d-md-inline-flex">
                 <BsPerson size={24} />

@@ -579,6 +579,35 @@ section, header, footer, .container, .custom-carousel, .home-page {
   color: #d4af37; /* Gold hover color */
 }
 
+.navbar-icon-link,
+.navbar-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: white;
+  transition: color 0.3s ease;
+  text-decoration: none;
+  height: 32px;
+  width: 32px;
+}
+
+.navbar-icon-link:hover,
+.navbar-icon-button:hover {
+  color: #d4af37;
+}
+
+.navbar-icon-button {
+  line-height: 1;
+}
+
+.navbar-icon-link {
+  line-height: 1;
+}
+
 
 /* Mobile fixes for carousel (viewport ~400px) */
 @media (max-width: 767.98px) {
@@ -632,5 +661,114 @@ section, header, footer, .container, .custom-carousel, .home-page {
     content: "";
     flex: 0 0 8px;
   }
+}
+
+/* Profile Dropdown Styles */
+.profile-dropdown-container {
+  position: relative;
+}
+
+.profile-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  width: 280px;
+  background: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.profile-dropdown-header {
+  padding: 16px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.profile-dropdown-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #d4af37;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-dropdown-content {
+  padding: 16px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.profile-info-item {
+  margin-bottom: 16px;
+}
+
+.profile-info-item:last-child {
+  margin-bottom: 0;
+}
+
+.profile-info-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.profile-info-value {
+  font-size: 14px;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  word-break: break-word;
+}
+
+.profile-dropdown-actions {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-profile-details {
+  padding: 10px 16px;
+  background-color: #d4af37;
+  color: #121212;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.btn-profile-details:hover {
+  background-color: #b4932a;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+  text-decoration: none;
+  color: #121212;
+}
+
+.btn-profile-logout {
+  padding: 10px 16px;
+  background-color: #ef4444;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-profile-logout:hover {
+  background-color: #dc2626;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
 }
 
