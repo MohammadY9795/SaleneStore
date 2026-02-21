@@ -96,12 +96,16 @@ legend {
 }
 
 .form__group input[type="radio"] {
-  margin-right: 8px;
+  margin: 0; /* Resets any global auto margins causing the centering */
+  width: auto; /* Prevents the input from stretching */
+  flex-shrink: 0; /* Prevents the radio button from shrinking if text wraps */
 }
 
 .form__group label:has(input[type="radio"]) {
   display: flex;
   align-items: center;
+  justify-content: flex-start; /* Forces the flex items to pack to the left */
+  gap: 10px; /* Replaces margin-right to provide clean, exact spacing */
   margin-bottom: 10px;
   cursor: pointer;
 }

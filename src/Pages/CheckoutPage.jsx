@@ -16,7 +16,7 @@ const CheckoutPage = () => {
     address: "",
     city: "",
     state: "",
-    zipCode: "",
+    pinCode: "",
     shippingMethod: "standard",
     paymentMethod: "card",
   });
@@ -46,7 +46,7 @@ const CheckoutPage = () => {
     setLoading(true);
 
     // Validation
-    if (!formData.fullName || !formData.address || !formData.city || !formData.state || !formData.zipCode) {
+    if (!formData.fullName || !formData.address || !formData.city || !formData.state || !formData.pinCode) {
       setError("Please fill in all required fields.");
       setLoading(false);
       return;
@@ -72,7 +72,7 @@ const CheckoutPage = () => {
           address: formData.address,
           city: formData.city,
           state: formData.state,
-          zipCode: formData.zipCode,
+          pinCode: formData.pinCode,
         },
         shippingMethod: formData.shippingMethod,
         paymentMethod: formData.paymentMethod,
@@ -207,12 +207,12 @@ const CheckoutPage = () => {
                     />
                   </div>
                   <div className="form__group">
-                    <label htmlFor="zipCode">Zip Code *</label>
+                    <label htmlFor="pinCode">Pin Code *</label>
                     <input
-                      id="zipCode"
-                      name="zipCode"
+                      id="pinCode"
+                      name="pinCode"
                       type="text"
-                      value={formData.zipCode}
+                      value={formData.pinCode}
                       onChange={handleChange}
                       required
                     />
@@ -288,7 +288,7 @@ const CheckoutPage = () => {
                     UPI (Demo)
                   </label>
                 </div>
-                <div className="form__group">
+                {/* <div className="form__group">
                   <label>
                     <input
                       type="radio"
@@ -299,7 +299,7 @@ const CheckoutPage = () => {
                     />
                     Cash on Delivery
                   </label>
-                </div>
+                </div> */}
               </fieldset>
 
               {error && <div style={{ color: "#ff6b6b", marginBottom: "15px" }}>{error}</div>}
