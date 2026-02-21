@@ -14,6 +14,7 @@ const CheckoutPage = () => {
     email: user?.email || "",
     phone: user?.phone || "",
     address: "",
+    landmark: "",
     city: "",
     state: "",
     pinCode: "",
@@ -70,6 +71,7 @@ const CheckoutPage = () => {
           email: formData.email,
           phone: formData.phone,
           address: formData.address,
+          landmark: formData.landmark,
           city: formData.city,
           state: formData.state,
           pinCode: formData.pinCode,
@@ -180,6 +182,18 @@ const CheckoutPage = () => {
                     value={formData.address}
                     onChange={handleChange}
                     required
+                  />
+                </div>
+
+                <div className="form__group">
+                  <label htmlFor="landmark">Landmark (optional)</label>
+                  <input
+                    id="landmark"
+                    name="landmark"
+                    type="text"
+                    placeholder="e.g. Near Central Park"
+                    value={formData.landmark}
+                    onChange={handleChange}
                   />
                 </div>
 

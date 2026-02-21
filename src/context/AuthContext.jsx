@@ -71,12 +71,25 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("salene_user");
   };
 
+  const updateUser = (updates) => {
+    setUser((prev) => {
+      const next = { ...prev, ...updates };
+      try {
+        localStorage.setItem("salene_user", JSON.stringify(next));
+      } catch (err) {
+        console.error("Failed to save updated user:", err);
+      }
+      return next;
+    });
+  };
+
   const value = {
     user,
     loading,
     register,
     login,
     logout,
+    updateUser,
     isAuthenticated: !!user,
   };
 

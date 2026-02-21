@@ -108,7 +108,11 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
                   className="profile-icon text-white d-none d-md-inline-flex navbar-icon-button"
                   title="Profile"
                 >
-                  <BsPerson size={20} />
+                  {user.avatar ? (
+                    <img src={user.avatar} alt="avatar" style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover' }} />
+                  ) : (
+                    <BsPerson size={20} />
+                  )}
                 </button>
 
                 {profileDropdownOpen && (

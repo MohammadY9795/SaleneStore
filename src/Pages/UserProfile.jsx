@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import "./UserProfile.css";
 
 const UserProfile = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, updateUser } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: user?.name || "",
@@ -37,76 +37,100 @@ const UserProfile = () => {
     navigate("/");
   };
 
+  const firstName = user?.name ? user.name.split(' ')[0] : '';
+
   return (
     <div className="profile__container">
       <div className="profile__header">
-        <h1>My Profile</h1>
-        <p>Welcome back, {user?.name}!</p>
+        <div className="profile__avatar">
+          <input
+            id="avatarInput"
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={(e) => {
+              const file = e.target.files && e.target.files[0];
+              if (!file) return;
+              if (!file.type.startsWith('image/')) {
+                alert('Please select a valid image file.');
+                return;
+              }
+              const reader = new FileReader();
+              reader.onload = (ev) => {
+                const dataUrl = ev.target.result;
+                updateUser({ avatar: dataUrl });
+              };
+              reader.readAsDataURL(file);
+            }}
+          />
+
+          {user?.avatar ? (
+            <img src={user.avatar} alt="Avatar" className="avatar-image" />
+          ) : (
+            <div className="avatar-placeholder">{(user?.name || 'U').charAt(0).toUpperCase()}</div>
+          )}
+
+          <button
+            type="button"
+            className="avatar-edit-btn"
+            onClick={() => document.getElementById('avatarInput').click()}
+            aria-label="Edit profile picture"
+          >
+            ✎
+          </button>
+        </div>
+
+        <h1 style={{ marginTop: '12px' }}>My Profile</h1>
+        <p>Welcome back, {firstName}!</p>
       </div>
 
       <div className="profile__grid">
         {/* Profile Info Card */}
         <div className="profile__card">
           <h2>Account Information</h2>
-          <form onSubmit={handleSaveProfile}>
+          <div>
             <div className="form__group">
-              <label htmlFor="name">Full Name</label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Enter your full name"
-              />
+              <label>Full Name</label>
+              <div className="static-value">{user?.name}</div>
             </div>
 
             <div className="form__group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Enter your email"
-              />
+              <label>Email Address</label>
+              <div className="static-value">{user?.email}</div>
             </div>
 
             <div className="form__group">
-              <label htmlFor="phone">Phone Number</label>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder="Enter your phone number"
-              />
+              <label>Phone Number</label>
+              <div className="static-value">{user?.phone}</div>
             </div>
-
-            {saved && <div className="profile__success">Profile updated successfully!</div>}
-
-            <button type="submit" className="btn btn--primary profile__btn">
-              Save Changes
-            </button>
-          </form>
+          </div>
         </div>
 
         {/* Quick Stats Card */}
         <div className="profile__card profile__stats">
           <h2>Quick Stats</h2>
-          <div className="profile__stat">
-            <span className="profile__stat-label">Total Orders</span>
-            <span className="profile__stat-value">{orderCount}</span>
+          <div className="stats-body">
+            <div className="profile__stat">
+              <span className="profile__stat-label">Total Orders</span>
+              <span className="profile__stat-value">{orderCount}</span>
+            </div>
+            <div className="profile__stat">
+              <span className="profile__stat-label">Member Since</span>
+              <span className="profile__stat-value">2026</span>
+            </div>
           </div>
-          <div className="profile__stat">
-            <span className="profile__stat-label">Member Since</span>
-            <span className="profile__stat-value">2026</span>
+
+          <div className="stats-footer">
+            {orderCount >= 1 ? (
+              <Link to="/order-history" className="btn btn--secondary profile__btn">
+                View Order History
+              </Link>
+            ) : (
+              <button className="btn btn--secondary profile__btn" disabled title="You need at least 1 order to view order history">
+                View Order History
+              </button>
+            )}
           </div>
-          <Link to="/order-history" className="btn btn--secondary profile__btn">
-            View Order History
-          </Link>
         </div>
       </div>
 
