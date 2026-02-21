@@ -2,12 +2,59 @@ import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./CommonStyle.css";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 import prdct1 from "../assets/images/prdct1.png";
 import prdct2 from "../assets/images/prdct2.png";
 import prdct3 from "../assets/images/prdct3.png";
 import prdct4 from "../assets/images/prdct4.png";
 
 const ProductCarousel = () => {
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+
+  const carouselProducts = [
+    {
+      id: 1,
+      name: "Ha1o Alpha",
+      tagline: "For the man who commands the room. Own it, Rule All",
+      image: prdct1,
+      price: 99.99,
+    },
+    {
+      id: 2,
+      name: "Ha1o Date",
+      tagline: "A scent that turns heads and wins hearts. Set Vibes, Make Magic",
+      image: prdct2,
+      price: 99.99,
+    },
+    {
+      id: 3,
+      name: "Ha1o Day",
+      tagline: "Your daily dose of confidence. Fresh Start, All Day",
+      image: prdct3,
+      price: 99.99,
+    },
+    {
+      id: 4,
+      name: "Ha1o Night",
+      tagline: "Capture the night, own the spotlight. Dark, Bold, Unstoppable",
+      image: prdct4,
+      price: 99.99,
+    },
+    {
+      id: 5,
+      name: "Ha1o Sport",
+      tagline: "Stay fresh through every challenge. Play Hard, Stay Fresh",
+      image: prdct1,
+      price: 99.99,
+    },
+  ];
+
+  const handleBuyNow = (product) => {
+    addToCart(product, 1);
+    navigate("/checkout");
+  };
   useEffect(() => {
     const slider = document.querySelector(".items");
     const slides = document.querySelectorAll(".item");
@@ -88,115 +135,28 @@ const ProductCarousel = () => {
         Ha1o Collection
       </h2>
       <div className="items">
-        {/* Product 1 */}
-        <div className="item prev">
-          <a href="#" className="product-link">
-            <img
-              src={prdct1}
-              alt="Ha1o Alpha"
-            />
-            <img
-              src={prdct1}
-              alt="Ha1o Alpha - Hover"
-              className="hover-img"
-            />
-          </a>
-          <div className="details">
-            <h2>Ha1o Alpha</h2>
-            <p>
-              For the man who commands the room.<br /> <b>Own it, Rule All</b>
-            </p>
-            <a href="#" className="btn btn-light">
-              BUY NOW
+        {carouselProducts.map((product, index) => (
+          <div
+            key={product.id}
+            className={`item ${index === 0 ? "prev" : index === 1 ? "active" : index === 2 ? "next" : ""}`}
+          >
+            <a href="#products" className="product-link" onClick={(e) => e.preventDefault()}>
+              <img src={product.image} alt={product.name} />
+              <img src={product.image} alt={`${product.name} - Hover`} className="hover-img" />
             </a>
+            <div className="details">
+              <h2>{product.name}</h2>
+              <p>{product.tagline}</p>
+              <button
+                onClick={() => handleBuyNow(product)}
+                className="btn btn-light"
+                style={{ cursor: "pointer" }}
+              >
+                BUY NOW
+              </button>
+            </div>
           </div>
-        </div>
-
-        {/* Product 2 */}
-        <div className="item active">
-          <a href="#" className="product-link">
-            <img src={prdct2} />
-            <img
-              src={prdct2}
-              alt="Ha1o Date - Hover"
-              className="hover-img"
-            />
-          </a>
-          <div className="details">
-            <h2>Ha1o Date</h2>
-            <p>
-              A scent that turns heads and wins hearts.<br />{" "}
-              <b>Set Vibes, Make Magic</b>
-            </p>
-            <a href="#" className="btn btn-light">
-              BUY NOW
-            </a>
-          </div>
-        </div>
-
-        {/* Product 3 */}
-        <div className="item next">
-          <a href="#" className="product-link">
-            <img src={prdct3} />
-            <img
-              src={prdct3}
-              alt="Ha1o Day - Hover"
-              className="hover-img"
-            />
-          </a>
-          <div className="details">
-            <h2>Ha1o Day</h2>
-            <p>
-              Your daily dose of confidence.<br /> <b>Fresh Start, All Day</b>
-            </p>
-            <a href="#" className="btn btn-light">
-              BUY NOW
-            </a>
-          </div>
-        </div>
-
-        {/* Product 4 */}
-        <div className="item">
-          <a href="#" className="product-link">
-            <img src={prdct4} />
-            <img
-              src={prdct4}
-              alt="Ha1o Night - Hover"
-              className="hover-img"
-            />
-          </a>
-          <div className="details">
-            <h2>Ha1o Night</h2>
-            <p>
-              Capture the night, own the spotlight.<br />{" "}
-              <b>Dark, Bold, Unstoppable</b>
-            </p>
-            <a href="#" className="btn btn-light">
-              BUY NOW
-            </a>
-          </div>
-        </div>
-
-        {/* Product 5 */}
-        <div className="item">
-          <a href="#" className="product-link">
-            <img src={prdct1} />
-            <img
-              src={prdct1}
-              alt="Ha1o Sport - Hover"
-              className="hover-img"
-            />
-          </a>
-          <div className="details">
-            <h2>Ha1o Sport</h2>
-            <p>
-              Stay fresh through every challenge.<br /> <b>Play Hard, Stay Fresh</b>
-            </p>
-            <a href="#" className="btn btn-light">
-              BUY NOW
-            </a>
-          </div>
-        </div>
+        ))}
 
         {/* Arrows */}
         <div className="button-container">
@@ -211,9 +171,13 @@ const ProductCarousel = () => {
 
       {/* Footer button */}
       <div className="text-center my-4" style={{ marginLeft: '2px' }}>
-        <a href="#" className="btn btn-dark">
+        <button
+          onClick={() => navigate("/shop")}
+          className="btn btn-dark"
+          style={{ cursor: "pointer" }}
+        >
           VIEW ALL
-        </a>
+        </button>
       </div>
     </section>
   );
