@@ -12,6 +12,11 @@ import ProductPage from './Pages/Product/ProductPage';
 import ContactPage from './Pages/ContactPage';
 import AboutPage from './Pages/AboutPage';
 import LoginRegister from './Pages/LoginRegister';
+import OrderHistory from './Pages/OrderHistory';
+import UserProfile from './Pages/UserProfile';
+import { AuthProvider } from './context/AuthContext';
+import { CartProvider } from './context/CartContext';
+import ProtectedRoute from './Component/ProtectedRoute';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -27,24 +32,31 @@ const App = () => {
   const toggleDarkMode = () => setDarkMode(prev => !prev);
 
   return (
-     <Router basename="/salenestore">
-       {/* <Router > */}
-      <NavbarComponent toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-      <main className="container my-4">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<AllProductsPage />} />
-          <Route path="/catalogue" element={<Catalogue />} />
-          <Route path="/product/:slug" element={<ProductPage />} />
-          <Route path="/cart" element={<Cart />} />
-          {/* <Route path="/checkout" element={<CheckoutPage />} /> */}
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/login" element={<LoginRegister />} />
-        </Routes>
-      </main>
-      <Footer />
-    </Router>
+     <AuthProvider>
+       <CartProvider>
+         <Router basename="/salenestore">
+           {/* <Route
+       r > */}
+          <NavbarComponent toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+          <main className="container my-4">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/shop" element={<AllProductsPage />} />
+              <Route path="/catalogue" element={<Catalogue />} />
+              <Route path="/product/:slug" element={<ProductPage />} />
+              <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+              <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
+              <Route path="/order-history" element={<ProtectedRoute><OrderHistory /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/login" element={<LoginRegister />} />
+            </Routes>
+          </main>
+          <Footer />
+        </Router>
+       </CartProvider>
+     </AuthProvider>
   );
 };
 

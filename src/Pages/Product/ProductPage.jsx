@@ -1,40 +1,40 @@
 // src/pages/ProductPage.jsx
 
 import React, { useState } from "react";
-import { Container, Row, Col, Button, Form, Carousel, Card } from "react-bootstrap";
-import { useParams, Link } from "react-router-dom";
+import { Container, Row, Col, Button, Form, Carousel } from "react-bootstrap";
+import { useParams, useNavigate } from "react-router-dom";
 import { Tabs, Tab } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { productsData } from "../../data/ProductsData";
 import "./ProductPage.css";
-import PaginationComponent from "../../Components/PaginationComponent";
-import AccordionComponent from "../../Components/AccordionComponent";
-import ImageStrip from "../../Components/ImageStrip";
-import RelatedProducts from "../../Components/RelatedProducts";
-import ConcentrationCounters from "../../Components/ConcentrationCounters";
-import RightWayToApplyPerfume from "../../Components/RightWayToApplyPerfume";
+import { useCart } from "../../context/CartContext";
 
 export default function ProductPage() {
   const { slug } = useParams();
   const product = productsData[slug];
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   const [activeImage, setActiveImage] = useState(product?.images[0] || "");
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState(product?.sizes[0] || "");
-  const [activeTab, setActiveTab] = useState(null);
   const [currentReviewPage, setCurrentReviewPage] = useState(1);
+  const [addedToCart, setAddedToCart] = useState(false);
   const reviewsPerPage = 5;
-  const totalPages = Math.ceil(product.reviews.length / reviewsPerPage);
-  const currentReviews = product.reviews.slice(
+  const totalPages = product ? Math.ceil(product.reviews.length / reviewsPerPage) : 0;
+  const currentReviews = product ? product.reviews.slice(
     (currentReviewPage - 1) * reviewsPerPage,
     currentReviewPage * reviewsPerPage
-  );
+  ) : [];
 
-  console.log("Total Pages:", totalPages);
+  const handleAddToCart = () => {
+    addToCart(product, quantity, size);
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 2000);
+  };
 
-
-
+  // Early return after all hooks
   if (!product) {
     return (
       <Container className="py-5 text-center">
@@ -43,7 +43,7 @@ export default function ProductPage() {
     );
   }
 
-  console.log("Reviews:", product.reviews);
+  console.log("Total Pages:", totalPages);
 
   return (
     <main className="py-5">
@@ -228,10 +228,18 @@ export default function ProductPage() {
               </Form.Group>
 
               <div className="d-grid gap-2">
-                <Button variant="dark" size="lg">
-                  Add to Cart
+                <Button variant="dark" size="lg" onClick={handleAddToCart}>
+                  {addedToCart ? "✓ Added to Cart!" : "Add to Cart"}
                 </Button>
-
+                {addedToCart && (
+                  <Button
+                    variant="outline-light"
+                    size="lg"
+                    onClick={() => navigate("/cart")}
+                  >
+                    Go to Cart
+                  </Button>
+                )}
               </div>
               <div>
                 {/* 🧾 PRODUCT DETAILS TABS */}
@@ -475,27 +483,48 @@ export default function ProductPage() {
               <p>No reviews yet for this product.</p>
             )}
 
+            {/* Pagination */}
             <div className="d-flex justify-content-center mt-4">
               {Array.isArray(product.reviews) && product.reviews.length > 0 && (
-                <PaginationComponent
-                  currentPage={currentReviewPage}
-                  totalPages={totalPages}
-                  onPageChange={setCurrentReviewPage}
-                  maxVisiblePages={5}
-                />
+                <nav aria-label="Page navigation">
+                  <ul className="pagination">
+                    {currentReviewPage > 1 && (
+                      <li className="page-item">
+                        <button 
+                          className="page-link" 
+                          onClick={() => setCurrentReviewPage(currentReviewPage - 1)}
+                        >
+                          Previous
+                        </button>
+                      </li>
+                    )}
+                    {[...Array(totalPages)].map((_, i) => (
+                      <li key={i + 1} className={`page-item ${currentReviewPage === i + 1 ? 'active' : ''}`}>
+                        <button 
+                          className="page-link"
+                          onClick={() => setCurrentReviewPage(i + 1)}
+                        >
+                          {i + 1}
+                        </button>
+                      </li>
+                    ))}
+                    {currentReviewPage < totalPages && (
+                      <li className="page-item">
+                        <button 
+                          className="page-link"
+                          onClick={() => setCurrentReviewPage(currentReviewPage + 1)}
+                        >
+                          Next
+                        </button>
+                      </li>
+                    )}
+                  </ul>
+                </nav>
               )}
-            </div>
-
-            <div>
-              <AccordionComponent />
             </div>
           </Container>
         </section>
       </div>
-      <ImageStrip />
-      <RightWayToApplyPerfume />
-      <ConcentrationCounters />
-      <RelatedProducts currentSlug={slug} />
     </main>
   );
 }

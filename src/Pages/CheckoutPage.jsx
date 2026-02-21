@@ -1,84 +1,360 @@
 import React, { useState } from "react";
 import "./CheckoutPage.css";
-import CartEmpty from "../Components/CartEmpty";
-import CartItem from "../Components/CartItem";
-import UpsellProductCard from "../Components/UpsellProductCard";
+import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
-  // Sample cart items and upsell products (can be fetched via API)
-  const [cartItems, setCartItems] = useState([
-    {
-      id: "48520465121568",
-      title: "Ha1o Alpha",
-      variant: "100 ML",
-      price: 399,
-      oldPrice: 999,
-      quantity: 2,
-      image: "//metaman.in/cdn/shop/files/PRA_0037_aab1f9d7-c272-4f5b-86fc-d41b25f279f3.jpg?v=1758198583",
-      link: "/products/alpha?variant=48520465121568"
-    },
-  ]);
+  const { cart, getTotalPrice, clearCart } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
-  const upsellProducts = [
-    {
-      id: "9378872197408",
-      title: "Ha1o Alpha",
-      variant: "100 ML",
-      price: 399,
-      oldPrice: 999,
-      image: "//metaman.in/cdn/shop/files/PRA_0037_aab1f9d7-c272-4f5b-86fc-d41b25f279f3.jpg?crop=center&height=240&width=240",
-      link: "/products/alpha"
-    },
-    {
-      id: "9378806432032",
-      title: "Ha1o Date",
-      variant: "100 ML",
-      price: 399,
-      oldPrice: 999,
-      image: "//metaman.in/cdn/shop/files/SHR_0025_1.jpg?crop=center&height=240&width=240",
-      link: "/products/date"
-    },
-    {
-      id: "9378885533984",
-      title: "Ha1o Day",
-      variant: "100 ML",
-      price: 399,
-      oldPrice: 999,
-      image: "//metaman.in/cdn/shop/files/PRA_0538_0920a365-e3bd-47da-87dd-089ebfabd5fd.jpg?crop=center&height=240&width=240",
-      link: "/products/day"
-    },
-  ];
+  const [formData, setFormData] = useState({
+    fullName: user?.name || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    shippingMethod: "standard",
+    paymentMethod: "card",
+  });
+
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const shippingCosts = {
+    standard: 0,
+    express: 100,
+    overnight: 250,
+  };
+
+  const subtotal = getTotalPrice();
+  const shippingCost = shippingCosts[formData.shippingMethod] || 0;
+  const tax = Math.round(subtotal * 0.18); // 18% GST
+  const total = subtotal + shippingCost + tax;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    // Validation
+    if (!formData.fullName || !formData.address || !formData.city || !formData.state || !formData.zipCode) {
+      setError("Please fill in all required fields.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // Simulate API call - in real app, you'd save to backend/Firestore
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Create order object
+      const order = {
+        id: `ORD-${Date.now()}`,
+        userId: user.id,
+        items: cart,
+        subtotal,
+        tax,
+        shippingCost,
+        total,
+        shippingDetails: {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+          city: formData.city,
+          state: formData.state,
+          zipCode: formData.zipCode,
+        },
+        shippingMethod: formData.shippingMethod,
+        paymentMethod: formData.paymentMethod,
+        status: "pending",
+        createdAt: new Date().toISOString(),
+      };
+
+      // Save order to localStorage (demo - in real app, use Firebase/backend)
+      const existingOrders = JSON.parse(localStorage.getItem("salene_orders") || "[]");
+      existingOrders.push(order);
+      localStorage.setItem("salene_orders", JSON.stringify(existingOrders));
+
+      // Also save to user's order history
+      const userOrders = JSON.parse(localStorage.getItem(`user_orders_${user.id}`) || "[]");
+      userOrders.push(order);
+      localStorage.setItem(`user_orders_${user.id}`, JSON.stringify(userOrders));
+
+      setOrderPlaced(true);
+      clearCart();
+
+      // Redirect to order confirmation after 2 seconds
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } catch (err) {
+      setError(err.message || "Failed to place order. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (cart.length === 0 && !orderPlaced) {
+    return (
+      <div style={{ textAlign: "center", padding: "40px 20px" }}>
+        <h2>Your cart is empty</h2>
+        <p>Add items to your cart before checking out.</p>
+      </div>
+    );
+  }
+
+  if (orderPlaced) {
+    return (
+      <div style={{ textAlign: "center", padding: "40px 20px", color: "#d4af37" }}>
+        <h1>Order Placed Successfully!</h1>
+        <p>Thank you for your purchase. Redirecting to home...</p>
+      </div>
+    );
+  }
 
   return (
-    <main className="main-content">
-      <div className="cart section-padding">
-        {cartItems.length === 0 ? (
-          <CartEmpty />
-        ) : (
-          <div className="cart__inner">
-            <div className="cart__content">
-              <h1 className="cart__title">
-                Cart <span className="cart__items-count">{cartItems.length}</span>
-              </h1>
-              <a className="btn btn--outline btn--primary" href="/collections/all">
-                Continue Shopping
-              </a>
-              <div className="cart__items">
-                {cartItems.map((item) => (
-                  <CartItem key={item.id} item={item} />
-                ))}
+    <div className="checkout__container">
+      <div className="checkout__content">
+        <h1>Checkout</h1>
+
+        <div className="checkout__grid">
+          {/* Left: Shipping & Payment Form */}
+          <div className="checkout__form">
+            <form onSubmit={handleSubmit}>
+              {/* Shipping Information */}
+              <fieldset>
+                <legend>Shipping Address</legend>
+                <div className="form__group">
+                  <label htmlFor="fullName">Full Name *</label>
+                  <input
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="form__group">
+                  <label htmlFor="email">Email *</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="form__group">
+                  <label htmlFor="phone">Phone *</label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="form__group">
+                  <label htmlFor="address">Address *</label>
+                  <input
+                    id="address"
+                    name="address"
+                    type="text"
+                    placeholder="Street address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="form__row">
+                  <div className="form__group">
+                    <label htmlFor="city">City *</label>
+                    <input
+                      id="city"
+                      name="city"
+                      type="text"
+                      value={formData.city}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="form__group">
+                    <label htmlFor="state">State *</label>
+                    <input
+                      id="state"
+                      name="state"
+                      type="text"
+                      value={formData.state}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="form__group">
+                    <label htmlFor="zipCode">Zip Code *</label>
+                    <input
+                      id="zipCode"
+                      name="zipCode"
+                      type="text"
+                      value={formData.zipCode}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                </div>
+              </fieldset>
+
+              {/* Shipping Method */}
+              <fieldset>
+                <legend>Shipping Method</legend>
+                <div className="form__group">
+                  <label>
+                    <input
+                      type="radio"
+                      name="shippingMethod"
+                      value="standard"
+                      checked={formData.shippingMethod === "standard"}
+                      onChange={handleChange}
+                    />
+                    Standard Shipping (FREE) - 5-7 business days
+                  </label>
+                </div>
+                <div className="form__group">
+                  <label>
+                    <input
+                      type="radio"
+                      name="shippingMethod"
+                      value="express"
+                      checked={formData.shippingMethod === "express"}
+                      onChange={handleChange}
+                    />
+                    Express Shipping (+Rs. 100) - 2-3 business days
+                  </label>
+                </div>
+                <div className="form__group">
+                  <label>
+                    <input
+                      type="radio"
+                      name="shippingMethod"
+                      value="overnight"
+                      checked={formData.shippingMethod === "overnight"}
+                      onChange={handleChange}
+                    />
+                    Overnight Shipping (+Rs. 250) - Next business day
+                  </label>
+                </div>
+              </fieldset>
+
+              {/* Payment Method */}
+              <fieldset>
+                <legend>Payment Method</legend>
+                <div className="form__group">
+                  <label>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="card"
+                      checked={formData.paymentMethod === "card"}
+                      onChange={handleChange}
+                    />
+                    Credit/Debit Card
+                  </label>
+                </div>
+                <div className="form__group">
+                  <label>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="upi"
+                      checked={formData.paymentMethod === "upi"}
+                      onChange={handleChange}
+                    />
+                    UPI (Demo)
+                  </label>
+                </div>
+                <div className="form__group">
+                  <label>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="cod"
+                      checked={formData.paymentMethod === "cod"}
+                      onChange={handleChange}
+                    />
+                    Cash on Delivery
+                  </label>
+                </div>
+              </fieldset>
+
+              {error && <div style={{ color: "#ff6b6b", marginBottom: "15px" }}>{error}</div>}
+
+              <button
+                type="submit"
+                className="btn btn--primary"
+                disabled={loading}
+                style={{ width: "100%", padding: "12px", marginTop: "20px" }}
+              >
+                {loading ? "Processing..." : "Place Order"}
+              </button>
+            </form>
+          </div>
+
+          {/* Right: Order Summary */}
+          <div className="checkout__summary">
+            <h2>Order Summary</h2>
+            <div className="summary__items">
+              {cart.map((item) => (
+                <div key={`${item.id}-${item.variant}`} className="summary__item">
+                  <div className="summary__item-info">
+                    <p className="summary__item-name">{item.name}</p>
+                    <p className="summary__item-variant">{item.variant}</p>
+                  </div>
+                  <p className="summary__item-qty">x{item.quantity}</p>
+                  <p className="summary__item-price">Rs. {item.price * item.quantity}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="summary__divider" />
+
+            <div className="summary__totals">
+              <div className="summary__row">
+                <span>Subtotal</span>
+                <span>Rs. {subtotal}</span>
+              </div>
+              <div className="summary__row">
+                <span>Shipping</span>
+                <span>Rs. {shippingCost}</span>
+              </div>
+              <div className="summary__row">
+                <span>Tax (18% GST)</span>
+                <span>Rs. {tax}</span>
+              </div>
+              <div className="summary__row summary__total">
+                <span>Total</span>
+                <span style={{ color: "#d4af37", fontWeight: "bold", fontSize: "18px" }}>Rs. {total}</span>
               </div>
             </div>
           </div>
-        )}
-
-        <div className="upsell-products">
-          {upsellProducts.map((product) => (
-            <UpsellProductCard key={product.id} product={product} />
-          ))}
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

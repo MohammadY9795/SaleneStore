@@ -1,16 +1,25 @@
 // ...existing code...
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BsBag, BsPerson } from 'react-icons/bs';
 import './CommonStyle.css';
 import Icon from '../assets/images/SALENE_LOGO.png';
+import { useAuth } from '../context/AuthContext';
 
 const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const closeSidebar = () => setSidebarOpen(false);
   const toggleSidebar = () => setSidebarOpen(v => !v);
+
+  const handleLogout = () => {
+    logout();
+    closeSidebar();
+    navigate("/");
+  };
 
   const NavLinks = ({ onClick }) => (
     <>
@@ -64,15 +73,36 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
           </Col>
 
           {/* Right icons - cart/profile (profile hidden on mobile) */}
-          <Col xs={3} md={4} className="d-flex justify-content-end align-items-center pe-3">
-            <Link to="/cart" className="cart-icon text-white me-3">
+          <Col xs={3} md={4} className="d-flex justify-content-end align-items-center pe-3 gap-2">
+            <Link to="/cart" className="cart-icon text-white">
               <BsBag size={24} />
             </Link>
 
-            {/* profile icon hidden on small screens, moved into sidebar */}
-            <Link to="/login" className="profile-icon text-white d-none d-md-inline-flex">
-              <BsPerson size={24} />
-            </Link>
+            {user ? (
+              <>
+                <Link
+                  to="/profile"
+                  className="profile-icon text-white d-none d-md-inline-flex"
+                  title="Profile"
+                >
+                  <BsPerson size={24} />
+                </Link>
+                <div className="d-none d-md-flex align-items-center text-white" style={{ fontSize: '12px', maxWidth: '80px' }}>
+                  <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Hi, {user.name.split(' ')[0]}</span>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-link text-white p-0 d-none d-md-inline-block"
+                  style={{ fontSize: '12px', textDecoration: 'none' }}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link to="/login" className="profile-icon text-white d-none d-md-inline-flex">
+                <BsPerson size={24} />
+              </Link>
+            )}
           </Col>
         </Row>
       </Container>
@@ -107,9 +137,30 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
           {/* Profile moved into mobile sidebar */}
           <div className="sidebar-section mt-2">
             <div className="sidebar-title">ACCOUNT</div>
-            <Link to="/login" className="sidebar-link" onClick={closeSidebar}>
-              <BsPerson style={{ marginRight: 8 }} /> Login / Profile
-            </Link>
+            {user ? (
+              <>
+                <div className="sidebar-link" style={{ color: '#d4af37', fontWeight: 'bold' }}>
+                  {user.name}
+                </div>
+                <Link to="/profile" className="sidebar-link" onClick={closeSidebar} style={{ color: '#d4af37' }}>
+                  My Profile
+                </Link>
+                <Link to="/order-history" className="sidebar-link" onClick={closeSidebar} style={{ color: '#d4af37' }}>
+                  Order History
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="sidebar-link btn btn-link text-start w-100"
+                  style={{ textDecoration: 'none', padding: 0, color: '#d4af37' }}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link to="/login" className="sidebar-link" onClick={closeSidebar}>
+                <BsPerson style={{ marginRight: 8 }} /> Login / Profile
+              </Link>
+            )}
           </div>
         </div>
       </nav>
