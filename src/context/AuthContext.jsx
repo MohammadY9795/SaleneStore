@@ -4,8 +4,8 @@ const AuthContext = createContext();
 
 // Default demo users
 const DEFAULT_USERS = [
-  { id: 1, name: "Demo User", email: "demo@salene.com", password: "demo123", phone: "555-0001" },
-  { id: 2, name: "Test User", email: "test@salene.com", password: "test123", phone: "555-0002" },
+  { id: 1, name: "Demo User", email: "demo@salene.com", password: "demo123", phone: "555-0001", addresses: [] },
+  { id: 2, name: "Test User", email: "test@salene.com", password: "test123", phone: "555-0002", addresses: [] },
 ];
 
 // Initialize DEMO_USERS from localStorage or use defaults
@@ -59,6 +59,7 @@ export const AuthProvider = ({ children }) => {
       email,
       password,
       phone,
+      addresses: [],
     };
     DEMO_USERS.push(newUser);
 
@@ -70,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     // Log in the new user (without password in state)
-    const loggedInUser = { id: newUser.id, name: newUser.name, email: newUser.email, phone: newUser.phone };
+    const loggedInUser = { id: newUser.id, name: newUser.name, email: newUser.email, phone: newUser.phone, addresses: [] };
     setUser(loggedInUser);
     localStorage.setItem("salene_user", JSON.stringify(loggedInUser));
 
@@ -85,7 +86,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     // Log in user (without password in state)
-    const loggedInUser = { id: foundUser.id, name: foundUser.name, email: foundUser.email, phone: foundUser.phone };
+    const loggedInUser = { id: foundUser.id, name: foundUser.name, email: foundUser.email, phone: foundUser.phone, addresses: foundUser.addresses || [] };
     setUser(loggedInUser);
     localStorage.setItem("salene_user", JSON.stringify(loggedInUser));
 
@@ -122,6 +123,37 @@ export const AuthProvider = ({ children }) => {
     return { success: true };
   };
 
+  const addAddress = (address) => {
+    if (!user) throw new Error("User not authenticated");
+
+    // Generate unique ID for address
+    const addressId = Date.now();
+    const newAddress = { id: addressId, ...address };
+
+    // Update in user state
+    const updatedAddresses = [...(user.addresses || []), newAddress];
+    const updatedUser = { ...user, addresses: updatedAddresses };
+    setUser(updatedUser);
+    try {
+      localStorage.setItem("salene_user", JSON.stringify(updatedUser));
+    } catch (err) {
+      console.error("Failed to save address:", err);
+    }
+
+    // Also update in DEMO_USERS
+    const demoUser = DEMO_USERS.find((u) => u.id === user.id);
+    if (demoUser) {
+      demoUser.addresses = updatedAddresses;
+      try {
+        localStorage.setItem("salene_all_users", JSON.stringify(DEMO_USERS));
+      } catch (err) {
+        console.error("Failed to save users to localStorage:", err);
+      }
+    }
+
+    return newAddress;
+  };
+
   const value = {
     user,
     loading,
@@ -130,6 +162,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     updateUser,
     updatePassword,
+    addAddress,
     isAuthenticated: !!user,
   };
 

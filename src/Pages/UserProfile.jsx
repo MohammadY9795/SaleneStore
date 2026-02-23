@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import ChangePasswordModal from "../Component/ChangePasswordModal";
+import ManageAddressesModal from "../Component/ManageAddressesModal";
 import "./UserProfile.css";
 
 const UserProfile = () => {
-  const { user, logout, updateUser, updatePassword } = useAuth();
+  const { user, logout, updateUser, updatePassword, addAddress } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: user?.name || "",
@@ -15,6 +16,7 @@ const UserProfile = () => {
   const [saved, setSaved] = useState(false);
   const [orderCount, setOrderCount] = useState(0);
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+  const [isManageAddressesOpen, setIsManageAddressesOpen] = useState(false);
 
   useEffect(() => {
     // Load user's order count
@@ -45,6 +47,15 @@ const UserProfile = () => {
       setIsChangePasswordOpen(false);
     } catch (err) {
       console.error("Failed to change password:", err);
+    }
+  };
+
+  const handleAddAddress = (addressData) => {
+    try {
+      addAddress(addressData);
+      // Toast or success message could be added here
+    } catch (err) {
+      console.error("Failed to add address:", err);
     }
   };
 
@@ -160,7 +171,10 @@ const UserProfile = () => {
             <span className="profile__action-icon">📧</span>
             <span className="profile__action-label">Email Preferences</span>
           </button>
-          <button className="profile__action-btn">
+          <button 
+            className="profile__action-btn"
+            onClick={() => setIsManageAddressesOpen(true)}
+          >
             <span className="profile__action-icon">🏠</span>
             <span className="profile__action-label">Manage Addresses</span>
           </button>
@@ -184,6 +198,14 @@ const UserProfile = () => {
         onClose={() => setIsChangePasswordOpen(false)}
         user={user}
         onPasswordChange={handlePasswordChange}
+      />
+
+      {/* Manage Addresses Modal */}
+      <ManageAddressesModal
+        isOpen={isManageAddressesOpen}
+        onClose={() => setIsManageAddressesOpen(false)}
+        user={user}
+        onAddAddress={handleAddAddress}
       />
     </div>
   );
