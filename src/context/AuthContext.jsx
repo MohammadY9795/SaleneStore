@@ -2,18 +2,37 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
-// Demo users for testing
-const DEMO_USERS = [
+// Default demo users
+const DEFAULT_USERS = [
   { id: 1, name: "Demo User", email: "demo@salene.com", password: "demo123", phone: "555-0001" },
   { id: 2, name: "Test User", email: "test@salene.com", password: "test123", phone: "555-0002" },
 ];
+
+// Initialize DEMO_USERS from localStorage or use defaults
+let DEMO_USERS = [];
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // On mount, restore user from localStorage
+  // On mount, load users from localStorage and restore logged-in user
   useEffect(() => {
+    // Load all registered users from localStorage
+    const savedUsers = localStorage.getItem("salene_all_users");
+    if (savedUsers) {
+      try {
+        DEMO_USERS = JSON.parse(savedUsers);
+      } catch (err) {
+        console.error("Failed to parse saved users:", err);
+        DEMO_USERS = DEFAULT_USERS;
+      }
+    } else {
+      // First time - use defaults
+      DEMO_USERS = DEFAULT_USERS;
+      localStorage.setItem("salene_all_users", JSON.stringify(DEMO_USERS));
+    }
+
+    // Restore logged-in user
     const savedUser = localStorage.getItem("salene_user");
     if (savedUser) {
       try {
@@ -33,7 +52,7 @@ export const AuthProvider = ({ children }) => {
       throw new Error("Email already in use.");
     }
 
-    // Create new demo user
+    // Create new user
     const newUser = {
       id: DEMO_USERS.length + 1,
       name,
@@ -42,6 +61,13 @@ export const AuthProvider = ({ children }) => {
       phone,
     };
     DEMO_USERS.push(newUser);
+
+    // Persist all users to localStorage
+    try {
+      localStorage.setItem("salene_all_users", JSON.stringify(DEMO_USERS));
+    } catch (err) {
+      console.error("Failed to save users to localStorage:", err);
+    }
 
     // Log in the new user (without password in state)
     const loggedInUser = { id: newUser.id, name: newUser.name, email: newUser.email, phone: newUser.phone };
