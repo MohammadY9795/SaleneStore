@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
+import ChangePasswordModal from "../Component/ChangePasswordModal";
 import "./UserProfile.css";
 
 const UserProfile = () => {
-  const { user, logout, updateUser } = useAuth();
+  const { user, logout, updateUser, updatePassword } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: user?.name || "",
@@ -13,6 +14,7 @@ const UserProfile = () => {
   });
   const [saved, setSaved] = useState(false);
   const [orderCount, setOrderCount] = useState(0);
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
 
   useEffect(() => {
     // Load user's order count
@@ -35,6 +37,15 @@ const UserProfile = () => {
   const handleLogout = () => {
     logout();
     navigate("/");
+  };
+
+  const handlePasswordChange = async (newPassword) => {
+    try {
+      await updatePassword(newPassword);
+      setIsChangePasswordOpen(false);
+    } catch (err) {
+      console.error("Failed to change password:", err);
+    }
   };
 
   const firstName = user?.name ? user.name.split(' ')[0] : '';
@@ -138,7 +149,10 @@ const UserProfile = () => {
       <div className="profile__actions">
         <h2>Account Actions</h2>
         <div className="profile__action-grid">
-          <button className="profile__action-btn">
+          <button 
+            className="profile__action-btn"
+            onClick={() => setIsChangePasswordOpen(true)}
+          >
             <span className="profile__action-icon">🔒</span>
             <span className="profile__action-label">Change Password</span>
           </button>
@@ -163,6 +177,14 @@ const UserProfile = () => {
           Logout
         </button>
       </div>
+
+      {/* Change Password Modal */}
+      <ChangePasswordModal
+        isOpen={isChangePasswordOpen}
+        onClose={() => setIsChangePasswordOpen(false)}
+        user={user}
+        onPasswordChange={handlePasswordChange}
+      />
     </div>
   );
 };

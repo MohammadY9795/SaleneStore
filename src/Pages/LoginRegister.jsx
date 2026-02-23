@@ -3,11 +3,13 @@ import "./LoginRegister.css";
 import logo from "../assets/images/SALENE_LOGO.png";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import ForgotPasswordModal from "../Component/ForgotPasswordModal";
 
 const LoginRegister = () => {
-  const { register: authRegister, login: authLogin } = useAuth();
+  const { register: authRegister, login: authLogin, updatePassword } = useAuth();
   const navigate = useNavigate();
   const [isRightPanelActive, setIsRightPanelActive] = useState(false);
+  const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
 
   const [registerData, setRegisterData] = useState({ name: "", email: "", phone: "", password: "", confirmPassword: "" });
   const [loginData, setLoginData] = useState({ emailOrPhone: "", password: "" });
@@ -69,6 +71,16 @@ const LoginRegister = () => {
     }
   };
 
+  const handleForgotPasswordReset = async (userId, newPassword) => {
+    try {
+      await updatePassword(newPassword);
+      // Close modal after password reset
+      setIsForgotPasswordOpen(false);
+    } catch (err) {
+      console.error("Failed to reset password:", err);
+    }
+  };
+
   return (
     <div className="login-register-page">
       <div className={`container-slider ${isRightPanelActive ? "right-panel-active" : ""}`}>
@@ -103,9 +115,13 @@ const LoginRegister = () => {
             <label className="gold-text small" htmlFor="signin-password">Password</label>
             <input id="signin-password" name="password" value={loginData.password} onChange={onLoginChange} type="password" placeholder="Password" autoComplete="current-password" required aria-required="true" />
 
-            <a href="#" className="text-muted small mt-2 text-decoration-none" style={{color: '#d4af37', fontSize: '12px'}}>
+            <button
+              type="button"
+              className="forgot-password-btn"
+              onClick={() => setIsForgotPasswordOpen(true)}
+            >
               Forgot your password?
-            </a>
+            </button>
             {error && <div style={{ color: "#ff6b6b", marginTop: 8 }}>{error}</div>}
             <button type="submit" className="gold-border-btn" disabled={loading}>{loading ? "Signing in..." : "Sign In"}</button>
           </form>
@@ -137,6 +153,13 @@ Log in to SALENE and rediscover the essence of elegance. We’re glad to have yo
           </div>
         </div>
       </div>
+
+      {/* Forgot Password Modal */}
+      <ForgotPasswordModal
+        isOpen={isForgotPasswordOpen}
+        onClose={() => setIsForgotPasswordOpen(false)}
+        onPasswordReset={handleForgotPasswordReset}
+      />
     </div>
   );
 };

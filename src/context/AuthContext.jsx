@@ -83,6 +83,19 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  const updatePassword = async (newPassword) => {
+    if (!user) throw new Error("User not authenticated");
+
+    // Update password in DEMO_USERS
+    const demoUser = DEMO_USERS.find((u) => u.id === user.id);
+    if (demoUser) {
+      demoUser.password = newPassword;
+    }
+
+    // Password is not stored in user state, just return success
+    return { success: true };
+  };
+
   const value = {
     user,
     loading,
@@ -90,6 +103,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     updateUser,
+    updatePassword,
     isAuthenticated: !!user,
   };
 

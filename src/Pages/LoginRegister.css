@@ -262,6 +262,24 @@ button {
     color: #d4af37;
 }
 
+.forgot-password-btn {
+  background: none;
+  border: none;
+  color: #d4af37;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s;
+  padding: 0;
+  margin-top: 12px;
+  display: block;
+}
+
+.forgot-password-btn:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .container-slider {
