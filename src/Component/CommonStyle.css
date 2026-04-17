@@ -661,6 +661,122 @@ section, header, footer, .container, .custom-carousel, .home-page {
     content: "";
     flex: 0 0 8px;
   }
+
+  /* Navbar responsive adjustments */
+  .custom-navbar {
+    padding: 0.5rem 1rem;
+  }
+
+  .logo-text {
+    font-size: 0.9rem;
+  }
+
+  .nav-link-custom {
+    font-size: 0.8rem;
+    padding: 0.2rem;
+  }
+
+  /* Body padding adjustment for mobile */
+  body {
+    padding-top: 80px;
+  }
+
+  /* Rich text responsive adjustments */
+  .richtext-content {
+    padding: 0 15px;
+  }
+
+  .richtext-title {
+    font-size: 1.8rem;
+  }
+
+  .richtext-body p {
+    font-size: 14px;
+  }
+}
+
+/* Extra small screens (480px and below) */
+@media (max-width: 480px) {
+  /* Navbar adjustments */
+  .custom-navbar {
+    padding: 0.3rem 0.5rem;
+  }
+
+  .logo-text {
+    font-size: 0.8rem;
+  }
+
+  .nav-link-custom {
+    font-size: 0.7rem;
+    padding: 0.1rem;
+  }
+
+  .navbar-icon-link,
+  .navbar-icon-button {
+    height: 28px;
+    width: 28px;
+  }
+
+  .profile-dropdown-menu {
+    width: 250px;
+    right: -10px;
+  }
+
+  /* Rich text adjustments */
+  .richtext-title {
+    font-size: 1.5rem;
+  }
+
+  .richtext-body p {
+    font-size: 13px;
+  }
+
+  /* Announcement bar adjustments */
+  .announcement-slide p {
+    font-size: 0.8rem;
+  }
+
+  /* Footer adjustments */
+  .footer-section .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .footer-logo {
+    width: 50px;
+  }
+
+  .footer-title {
+    font-size: 13px;
+  }
+
+  .footer-links li {
+    font-size: 11px;
+  }
+
+  .footer-text {
+    font-size: 13px;
+  }
+
+  .newsletter-input,
+  .newsletter-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  /* Carousel adjustments */
+  .custom-carousel .item {
+    flex: 0 0 85%;
+    min-width: 200px;
+  }
+
+  .details h2 {
+    font-size: 16px;
+  }
+
+  .details p {
+    font-size: 12px;
+  }
 }
 
 /* Profile Dropdown Styles */

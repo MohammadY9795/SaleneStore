@@ -5,14 +5,39 @@
 .video-banner {
   height: 500px;
   overflow: hidden;
+  position: relative;
 }
 
 .banner-thumbnail,
 .banner-video {
   object-fit: cover;
   height: 100%;
+  width: 100%;
 }
 
 .mute-toggle-btn {
   z-index: 10;
+}
+
+/* Responsive styles for Home page */
+@media (max-width: 768px) {
+  .video-banner {
+    height: 300px;
+  }
+
+  .mute-toggle-btn {
+    bottom: 10px;
+    right: 10px;
+    padding: 8px;
+  }
+
+  .mute-toggle-btn .btn-sm {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-banner {
+    height: 250px;
+  }
 }

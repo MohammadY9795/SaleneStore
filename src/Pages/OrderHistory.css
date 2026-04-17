@@ -225,3 +225,132 @@
   font-size: 16px;
   color: #d4af37;
 }
+
+/* Additional responsive improvements */
+@media (max-width: 480px) {
+  .order-history__container {
+    padding: 20px 10px;
+  }
+
+  .order-history__container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .order-history__loading,
+  .order-history__empty {
+    padding: 40px 15px;
+  }
+
+  .order-history__empty h2 {
+    font-size: 20px;
+  }
+
+  .order-history__empty p {
+    font-size: 14px;
+  }
+
+  .order-history__list {
+    gap: 15px;
+  }
+
+  .order-history__card {
+    padding: 15px;
+  }
+
+  .order-history__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .order-history__header h3 {
+    font-size: 16px;
+  }
+
+  .order-history__date {
+    font-size: 11px;
+  }
+
+  .order-history__status {
+    text-align: left;
+  }
+
+  .status-badge {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .order-history__total {
+    font-size: 14px;
+  }
+
+  .order-history__items {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+  }
+
+  .order-history__item {
+    grid-template-columns: 50px 1fr;
+    gap: 8px;
+    padding: 8px 0;
+  }
+
+  .order-history__item-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .order-history__item-info {
+    gap: 2px;
+  }
+
+  .order-history__item-name {
+    font-size: 13px;
+  }
+
+  .order-history__item-variant,
+  .order-history__item-qty {
+    font-size: 11px;
+  }
+
+  .order-history__item-price {
+    font-size: 13px;
+  }
+
+  .order-history__details {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+  }
+
+  .order-history__detail-section {
+    padding: 8px;
+  }
+
+  .order-history__detail-section h4 {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+
+  .order-history__detail-section p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .order-history__summary {
+    margin-top: 12px;
+  }
+
+  .order-history__summary-row {
+    font-size: 13px;
+    padding: 6px 0;
+  }
+
+  .order-history__summary-total {
+    font-size: 14px;
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+}

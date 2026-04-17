@@ -165,5 +165,94 @@
   }
 }
 
-/* Slightly different behavior if you prefer a cover (fills width/height but crops):
-   replace object-fit: contain with object-fit: cover (not recommended here since you want no crop) */
+/* Responsive styles for AllProducts page */
+@media (max-width: 768px) {
+  .sort-container {
+    font-size: 0.85rem;
+  }
+
+  .custom-filter-btn,
+  .custom-sort-btn {
+    font-size: 11px;
+    padding: 5px 12px;
+  }
+
+  .custom-filter-menu,
+  .custom-sort-menu {
+    min-width: 200px;
+  }
+
+  .filter-input {
+    max-width: 70px;
+  }
+
+  /* Product grid adjustments */
+  .row .col {
+    padding: 0.5rem;
+  }
+
+  .card {
+    margin-bottom: 1rem;
+  }
+
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sort-container {
+    font-size: 0.8rem;
+  }
+
+  .custom-filter-btn,
+  .custom-sort-btn {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+
+  .custom-filter-menu,
+  .custom-sort-menu {
+    min-width: 180px;
+  }
+
+  .filter-input {
+    max-width: 60px;
+    font-size: 12px;
+  }
+
+  /* Product grid adjustments for very small screens */
+  .row .col {
+    padding: 0.25rem;
+  }
+
+  .card {
+    margin-bottom: 0.5rem;
+  }
+
+  .card-img-top {
+    height: 150px;
+  }
+
+  .card-title {
+    font-size: 0.9rem;
+  }
+
+  .card-text {
+    font-size: 0.8rem;
+  }
+
+  /* Banner adjustments */
+  .all-products-banner {
+    padding-top: 60px;
+  }
+}

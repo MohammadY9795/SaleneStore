@@ -34,7 +34,7 @@ const App = () => {
   return (
      <AuthProvider>
        <CartProvider>
-         <Router basename="/salenestore">
+         <Router basename="/">
            {/* <Route
        r > */}
           <NavbarComponent toggleDarkMode={toggleDarkMode} darkMode={darkMode} />

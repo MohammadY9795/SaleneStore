@@ -290,3 +290,47 @@ button {
         padding: 0 20px;
     }
 }
+
+/* Additional responsive improvements */
+@media (max-width: 480px) {
+  .container-slider {
+    min-height: 550px;
+    width: 95%;
+  }
+
+  .form-wrapper {
+    padding: 0 15px;
+  }
+
+  .form-wrapper h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-wrapper input {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .gold-text-dark {
+    font-size: 1.8rem;
+  }
+
+  .text-description {
+    font-size: 13px;
+  }
+
+  .salene-logo {
+    width: 120px;
+    height: auto;
+  }
+
+  .gold-border-btn,
+  .dark-border-btn {
+    padding: 10px 35px;
+    font-size: 11px;
+  }
+
+  .forgot-password-btn {
+    font-size: 11px;
+  }
+}
