@@ -539,6 +539,12 @@ section, header, footer, .container, .custom-carousel, .home-page {
   transition: all 0.3s ease;
 }
 
+.custom-dropdown.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
 .nav-item:hover .custom-dropdown {
   opacity: 1;
   transform: translateY(0);

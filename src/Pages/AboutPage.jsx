@@ -73,138 +73,140 @@ const AboutPage = () => {
 
   return (
     <main className="main-content">
-      {/* Section: About Us */}
-      <section className="section-padding about-section">
-        <div className="wrapper text-left">
-          <h2 className="section-title">About Us</h2>
-          <p>
-            Metaman is a fragrance brand founded by KL Rahul and Drip Project
-            committed to crafting unforgettable scents that embody elegance,
-            sophistication, and individuality. Metaman marks an exciting expansion
-            into the world of high-end perfumes.
-          </p>
-          <p>
-            At Metaman, we believe that a fragrance is more than just a scent; it's
-            an experience, a statement, and a reflection of one's personality. Our
-            collection features meticulously crafted perfumes designed for every
-            occasion, ensuring you always have the perfect scent to complement your
-            style.
-          </p>
-        </div>
-      </section>
-
-      {/* Section: Our Story */}
-      <section className="section-padding story-section">
-        <div className="wrapper text-left">
-          <h2 className="section-title">Our Story</h2>
-          <p>
-            Metaman was born from a passion for excellence and a desire to bring
-            the finest fragrances to life. Our journey began with the vision to
-            create a brand that offers not just perfumes, but an olfactory
-            experience that captivates and inspires. Drawing on the rich heritage
-            and expertise of Drip Project, we have seamlessly blended artistry
-            with craftsmanship to develop a line of perfumes that are both
-            timeless and contemporary.
-          </p>
-        </div>
-      </section>
-
-      {/* Section: Our Commitment */}
-      <section className="section-padding commitment-section">
-        <div className="wrapper text-left">
-          <h2 className="section-title">Our Commitment</h2>
-          <p>
-            At Metaman, we are dedicated to quality and sustainability. Our perfumes
-            are crafted using the finest ingredients, ensuring a long-lasting and
-            memorable scent.
-          </p>
-        </div>
-      </section>
-
-      {/* Section: Brand Ambassador */}
-      <section className="section-padding ambassador-section">
-        <div className="wrapper dual-block">
-          <div className="image-block">
-            <img
-              src="https://metaman.in/cdn/shop/files/KL_About_80272388-1aef-4687-ba30-1eb3260d61cd.png?v=1724822799"
-              alt="KL Rahul"
-            />
-          </div>
-          <div className="text-block">
-            <h2 className="section-title">Meet Our Brand Ambassador</h2>
+      <div style={{marginTop: '25px'}}>
+        {/* Section: About Us */}
+        <section className="section-padding about-section">
+          <div className="wrapper text-left">
+            <h2 className="section-title">About Us</h2>
             <p>
-              We are proud to have renowned cricketer KL Rahul as our brand ambassador
-              and investor. His dedication, passion, and excellence on and off the
-              field perfectly align with the values of Metaman.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Section: Join Our Journey */}
-      <section className="section-padding journey-section">
-        <div className="wrapper dual-block reverse">
-          <div className="image-block">
-            <img
-              src="https://metaman.in/cdn/shop/files/Halo_KL_4947_copyext_copy_1.jpg?v=1724181405"
-              alt="Metaman Journey"
-            />
-          </div>
-          <div className="text-block">
-            <h2 className="section-title">Join Us on Our Journey</h2>
-            <p>
-              Experience the magic of Metaman and let your scent tell your story.
-              Explore our collection and find your perfect fragrance today. Whether
-              you're looking to make a statement, create lasting memories, or simply
-              indulge in a moment of luxury, Ha1o is here to elevate your everyday
-              life.
+              Metaman is a fragrance brand founded by KL Rahul and Drip Project
+              committed to crafting unforgettable scents that embody elegance,
+              sophistication, and individuality. Metaman marks an exciting expansion
+              into the world of high-end perfumes.
             </p>
             <p>
-              For more information or to shop our collection, visit{" "}
+              At Metaman, we believe that a fragrance is more than just a scent; it's
+              an experience, a statement, and a reflection of one's personality. Our
+              collection features meticulously crafted perfumes designed for every
+              occasion, ensuring you always have the perfect scent to complement your
+              style.
+            </p>
+          </div>
+        </section>
+
+        {/* Section: Our Story */}
+        <section className="section-padding story-section">
+          <div className="wrapper text-left">
+            <h2 className="section-title">Our Story</h2>
+            <p>
+              Metaman was born from a passion for excellence and a desire to bring
+              the finest fragrances to life. Our journey began with the vision to
+              create a brand that offers not just perfumes, but an olfactory
+              experience that captivates and inspires. Drawing on the rich heritage
+              and expertise of Drip Project, we have seamlessly blended artistry
+              with craftsmanship to develop a line of perfumes that are both
+              timeless and contemporary.
+            </p>
+          </div>
+        </section>
+
+        {/* Section: Our Commitment */}
+        <section className="section-padding commitment-section">
+          <div className="wrapper text-left">
+            <h2 className="section-title">Our Commitment</h2>
+            <p>
+              At Metaman, we are dedicated to quality and sustainability. Our perfumes
+              are crafted using the finest ingredients, ensuring a long-lasting and
+              memorable scent.
+            </p>
+          </div>
+        </section>
+
+        {/* Section: Brand Ambassador */}
+        <section className="section-padding ambassador-section">
+          <div className="wrapper dual-block">
+            <div className="image-block">
+              <img
+                src="https://metaman.in/cdn/shop/files/KL_About_80272388-1aef-4687-ba30-1eb3260d61cd.png?v=1724822799"
+                alt="KL Rahul"
+              />
+            </div>
+            <div className="text-block">
+              <h2 className="section-title">Meet Our Brand Ambassador</h2>
+              <p>
+                We are proud to have renowned cricketer KL Rahul as our brand ambassador
+                and investor. His dedication, passion, and excellence on and off the
+                field perfectly align with the values of Metaman.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section: Join Our Journey */}
+        <section className="section-padding journey-section">
+          <div className="wrapper dual-block reverse">
+            <div className="image-block">
+              <img
+                src="https://metaman.in/cdn/shop/files/Halo_KL_4947_copyext_copy_1.jpg?v=1724181405"
+                alt="Metaman Journey"
+              />
+            </div>
+            <div className="text-block">
+              <h2 className="section-title">Join Us on Our Journey</h2>
+              <p>
+                Experience the magic of Metaman and let your scent tell your story.
+                Explore our collection and find your perfect fragrance today. Whether
+                you're looking to make a statement, create lasting memories, or simply
+                indulge in a moment of luxury, Ha1o is here to elevate your everyday
+                life.
+              </p>
+              <p>
+                For more information or to shop our collection, visit{" "}
+                <a
+                  href="https://metaman.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  metaman.in
+                </a>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section: Carousel */}
+        <section className="carousel-container">
+          <h4>Featured In</h4>
+          <div
+            className="carousel-wrapper"
+            ref={wrapperRef}
+            style={{
+              transform: `translateX(-${index * 170}px)`,
+              transition: "transform 0.5s ease-in-out",
+            }}
+          >
+            {carouselItems.map((item, i) => (
               <a
-                href="https://metaman.in/"
+                key={i}
+                href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="carousel-item"
               >
-                metaman.in
+                <img src={item.img} alt={item.alt} />
               </a>
-            </p>
+            ))}
           </div>
-        </div>
-      </section>
-
-      {/* Section: Carousel */}
-      <section className="carousel-container">
-        <h4>Featured In</h4>
-        <div
-          className="carousel-wrapper"
-          ref={wrapperRef}
-          style={{
-            transform: `translateX(-${index * 170}px)`,
-            transition: "transform 0.5s ease-in-out",
-          }}
-        >
-          {carouselItems.map((item, i) => (
-            <a
-              key={i}
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="carousel-item"
-            >
-              <img src={item.img} alt={item.alt} />
-            </a>
-          ))}
-        </div>
-        <div className="carousel-navigation">
-          <button className="nav-button" onClick={showPrev}>
-            ❮
-          </button>
-          <button className="nav-button" onClick={showNext}>
-            ❯
-          </button>
-        </div>
-      </section>
+          <div className="carousel-navigation">
+            <button className="nav-button" onClick={showPrev}>
+              ❮
+            </button>
+            <button className="nav-button" onClick={showNext}>
+              ❯
+            </button>
+          </div>
+        </section>
+      </div>
     </main>
   );
 };

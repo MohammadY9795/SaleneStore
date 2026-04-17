@@ -10,6 +10,7 @@ import { useAuth } from '../context/AuthContext';
 const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [isShopDropdownOpen, setIsShopDropdownOpen] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const profileDropdownRef = useRef(null);
@@ -44,21 +45,27 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
     navigate("/");
   };
 
-  const NavLinks = ({ onClick }) => (
+  const NavLinks = ({ onClick }) => {
+    const handleLinkClick = () => {
+      onClick();
+      setIsShopDropdownOpen(false);
+    };
+
+    return (
     <>
       <Link to="/" className="nav-link-custom" onClick={onClick}>HOME</Link>
 
-      <div className="nav-item dropdown d-none d-md-inline-block">
+      <div className="nav-item dropdown d-none d-md-inline-block" onMouseEnter={() => setIsShopDropdownOpen(true)} onMouseLeave={() => setIsShopDropdownOpen(false)}>
         <span className="nav-link-custom dropdown-toggle" id="shopDropdown">
           SHOP
         </span>
-        <div className="dropdown-menu custom-dropdown" aria-labelledby="shopDropdown">
-          <Link to="/shop" className="dropdown-item" onClick={onClick}>SHOP ALL</Link>
-          <Link to="/product/haio-alpha" className="dropdown-item" onClick={onClick}>HAIO ALPHA</Link>
-          <Link to="/product/haio-date" className="dropdown-item" onClick={onClick}>HAIO DATE</Link>
-          <Link to="/product/haio-day" className="dropdown-item" onClick={onClick}>HAIO DAY</Link>
-          <Link to="/product/haio-sport" className="dropdown-item" onClick={onClick}>HAIO SPORT</Link>
-          <Link to="/product/haio-night" className="dropdown-item" onClick={onClick}>HAIO NIGHT</Link>
+        <div className={`dropdown-menu custom-dropdown ${isShopDropdownOpen ? 'show' : ''}`} aria-labelledby="shopDropdown">
+          <Link to="/shop" className="dropdown-item" onClick={handleLinkClick}>SHOP ALL</Link>
+          <Link to="/product/haio-alpha" className="dropdown-item" onClick={handleLinkClick}>HAIO ALPHA</Link>
+          <Link to="/product/haio-date" className="dropdown-item" onClick={handleLinkClick}>HAIO DATE</Link>
+          <Link to="/product/haio-day" className="dropdown-item" onClick={handleLinkClick}>HAIO DAY</Link>
+          <Link to="/product/haio-sport" className="dropdown-item" onClick={handleLinkClick}>HAIO SPORT</Link>
+          <Link to="/product/haio-night" className="dropdown-item" onClick={handleLinkClick}>HAIO NIGHT</Link>
         </div>
       </div>
 
@@ -66,7 +73,8 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
       <Link to="/about" className="nav-link-custom d-none d-md-inline-block" onClick={onClick}>ABOUT US</Link>
       <Link to="/contact" className="nav-link-custom d-none d-md-inline-block" onClick={onClick}>CONTACT US</Link>
     </>
-  );
+    );
+  };
 
   return (
     <header className="custom-navbar bg-dark text-white py-1 px-2">
@@ -85,7 +93,7 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
 
             {/* Desktop links */}
             <div className="d-none d-md-flex align-items-center gap-4">
-              <NavLinks />
+              <NavLinks onClick={closeSidebar} />
             </div>
           </Col>
 
