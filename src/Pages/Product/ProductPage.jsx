@@ -9,11 +9,13 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { productsData } from "../../data/ProductsData";
 import "./ProductPage.css";
 import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/AuthContext";
 
 export default function ProductPage() {
   const { slug } = useParams();
   const product = productsData[slug];
   const { addToCart } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const [activeImage, setActiveImage] = useState(product?.images[0] || "");
@@ -30,6 +32,11 @@ export default function ProductPage() {
   ) : [];
 
   const handleAddToCart = (event) => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
     setAddingToCart(true);
     
     // Simulate brief loading for better UX
@@ -511,7 +518,7 @@ export default function ProductPage() {
                     </div>
                     {r.title && <strong>{r.title}</strong>}
                     <p className="mb-0">{r.text}</p>
-                    <small className="text-muted d-block mt-1" style={{ color: "#ccc" }}>
+                    <small className="text-muted d-block mt-1" style={{ color: "#ccc !important" }}>
                       {new Date(r.date).toLocaleDateString()}
                     </small>
                   </div>

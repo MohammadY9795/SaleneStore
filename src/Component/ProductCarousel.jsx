@@ -4,6 +4,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./CommonStyle.css";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 import prdct1 from "../assets/images/prdct1.png";
 import prdct2 from "../assets/images/prdct2.png";
 import prdct3 from "../assets/images/prdct3.png";
@@ -12,6 +13,7 @@ import prdct4 from "../assets/images/prdct4.png";
 const ProductCarousel = ({ products = [] }) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { user } = useAuth();
 
   // Use passed products or fallback to default carousel products
   const displayProducts = products.length > 0 ? products : carouselProducts;
@@ -55,6 +57,11 @@ const ProductCarousel = ({ products = [] }) => {
   ];
 
   const handleBuyNow = (product, event) => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
     addToCart(product, 1);
     
     // Animation: fly product image to cart icon

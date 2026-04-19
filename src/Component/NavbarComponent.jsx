@@ -65,13 +65,13 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
   const handleLogout = () => {
     logout();
     closeSidebar();
-    navigate("/");
+    navigate("/login");
   };
 
   const handleProfileLogout = () => {
     logout();
     setProfileDropdownOpen(false);
-    navigate("/");
+    navigate("/login");
   };
 
   const NavLinks = ({ onClick }) => {
@@ -134,27 +134,29 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
 
           {/* Right icons - cart/profile (profile hidden on mobile) */}
           <Col xs={3} md={4} className="d-flex justify-content-end align-items-center pe-3 gap-2">
-            <Link to="/cart" className="cart-icon text-white navbar-icon-link position-relative">
-              <BsBag size={20} />
-              {totalItems > 0 && (
-                <span 
-                  className="position-absolute top-0 start-100 translate-middle badge rounded-pill" 
-                  style={{ 
-                    fontSize: '0.7rem', 
-                    backgroundColor: '#d4af37', 
-                    color: '#000', 
-                    padding: '0.2em 0.4em',
-                    minWidth: '1.2em',
-                    height: '1.2em',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  {totalItems}
-                </span>
-              )}
-            </Link>
+            {user && (
+              <Link to="/cart" className="cart-icon text-white navbar-icon-link position-relative">
+                <BsBag size={20} />
+                {totalItems > 0 && (
+                  <span 
+                    className="position-absolute top-0 start-100 translate-middle badge rounded-pill" 
+                    style={{ 
+                      fontSize: '0.7rem', 
+                      backgroundColor: '#d4af37', 
+                      color: '#000', 
+                      padding: '0.2em 0.4em',
+                      minWidth: '1.2em',
+                      height: '1.2em',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+            )}
 
             {user ? (
               <div className="profile-dropdown-container" ref={profileDropdownRef}>

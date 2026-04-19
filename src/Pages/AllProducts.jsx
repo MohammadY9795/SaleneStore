@@ -2,8 +2,9 @@ import { Container, Row, Col, Card, Dropdown, Form, Button } from "react-bootstr
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/AllProducts.css";
-import { Funnel } from "react-bootstrap-icons";
+import { Funnel, CartPlus } from "react-bootstrap-icons";
 import { CartContext } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 const mockProducts = [
   {
@@ -49,6 +50,7 @@ const AllProductsPage = () => {
   const [sortLabel, setSortLabel] = useState("Featured");
   const [addingToCart, setAddingToCart] = useState(new Set());
   const { cart, addToCart } = useContext(CartContext);
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const handleSort = (option) => {
@@ -86,6 +88,11 @@ const AllProductsPage = () => {
   };
 
   const handleAddToCart = (product, event) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
     setAddingToCart(prev => new Set(prev).add(product.id));
     
     // Simulate brief loading for better UX
@@ -141,6 +148,11 @@ const AllProductsPage = () => {
   };
 
   const handleBuyNow = (product) => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
     if (cart.length === 0) {
       addToCart({ id: product.id, name: product.title, price: product.newPrice, imageUrl: product.image }, 1, "100 ML");
     }
@@ -258,7 +270,7 @@ const AllProductsPage = () => {
                     src={product.image}
                     alt={product.title}
                   />
-                  <Card.Body>
+                  <Card.Body className="d-flex flex-column h-100">
                     <Card.Title>{product.title}</Card.Title>
                     <Card.Text>
                       <span className="text-danger fw-bold">
@@ -268,24 +280,19 @@ const AllProductsPage = () => {
                         ₹{product.oldPrice}
                       </span>
                     </Card.Text>
-                    <div className="d-flex gap-2">
+                    <div className="product-card-actions mt-auto d-flex gap-2 align-items-center">
                       <Button 
-                        variant="primary" 
+                        variant="warning"
+                        className="btn-add-cart btn-icon-only"
                         onClick={(e) => handleAddToCart(product, e)}
                         disabled={addingToCart.has(product.id)}
+                        title="Add to cart"
                       >
-                        {addingToCart.has(product.id) ? (
-                          <>
-                            <div className="spinner-border spinner-border-sm me-2" role="status">
-                              <span className="visually-hidden">Loading...</span>
-                            </div>
-                            Adding...
-                          </>
-                        ) : (
-                          "Add to Cart"
-                        )}
+                        <CartPlus size={18} />
                       </Button>
-                      <Button variant="success" onClick={() => handleBuyNow(product)}>Buy Now</Button>
+                      <Button variant="success" className="btn-buy-now flex-grow-1" onClick={() => handleBuyNow(product)}>
+                        Buy Now
+                      </Button>
                     </div>
                   </Card.Body>
                 </Card>
