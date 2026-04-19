@@ -10,7 +10,7 @@ const sampleProducts = [
 
 const Catalogue = () => {
   return (
-    <Container>
+    <Container style={{ marginTop: '25px' }}>
       <h2 className="mb-4">Our Collection</h2>
       <Row>
         {sampleProducts.map(product => (

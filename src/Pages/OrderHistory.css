@@ -1,7 +1,7 @@
 .order-history__container {
   padding: 40px 20px;
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 25px auto 0 auto;
 }
 
 .order-history__container h1 {
@@ -14,18 +14,92 @@
 .order-history__loading,
 .order-history__empty {
   text-align: center;
-  padding: 60px 20px;
+  padding: 80px 20px;
   color: #d4af37;
+  background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+  border-radius: 20px;
+  margin: 40px auto;
+  max-width: 700px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.order-history__empty-icon {
+  font-size: 4rem;
+  color: #d4af37;
+  margin-bottom: 20px;
+  opacity: 0.8;
 }
 
 .order-history__empty h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 28px;
+  color: #d4af37;
+  margin-bottom: 15px;
+  font-weight: 600;
 }
 
 .order-history__empty p {
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.order-history__empty-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.order-history__empty-actions .btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.order-history__empty-actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.order-history__empty-tips {
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  padding-top: 30px;
+}
+
+.order-history__empty-tips h3 {
+  color: #d4af37;
+  font-size: 20px;
   margin-bottom: 20px;
-  color: rgba(255, 255, 255, 0.7);
+}
+
+.order-history__empty-features {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.order-history__empty-features .feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.order-history__empty-features .feature i {
+  font-size: 2rem;
+  color: #d4af37;
+  margin-bottom: 8px;
+}
+
+.order-history__empty-features .feature span {
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .order-history__list {

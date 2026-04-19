@@ -132,7 +132,13 @@ const ManageAddressesModal = ({ isOpen, onClose, user, onAddAddress }) => {
               </div>
             ))
           ) : (
-            <p className="no-addresses-message">No saved addresses yet.</p>
+            <div className="addresses-empty">
+              <div className="addresses-empty-icon">
+                <i className="bi bi-geo-alt" aria-hidden="true"></i>
+              </div>
+              <h3>No saved addresses</h3>
+              <p>Add your delivery addresses to make checkout faster and easier.</p>
+            </div>
           )}
         </div>
 

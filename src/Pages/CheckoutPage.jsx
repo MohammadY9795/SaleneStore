@@ -324,7 +324,16 @@ const CheckoutPage = () => {
                 disabled={loading}
                 style={{ width: "100%", padding: "12px", marginTop: "20px" }}
               >
-                {loading ? "Processing..." : "Place Order"}
+                {loading ? (
+                  <>
+                    <div className="spinner-border spinner-border-sm me-2" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                    Processing...
+                  </>
+                ) : (
+                  "Place Order"
+                )}
               </button>
             </form>
           </div>

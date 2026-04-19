@@ -77,7 +77,7 @@ const Home = () => {
 
   return (
     <>
-    <div className="home-page bg-dark text-white">
+    <div className="home-page bg-dark text-white" style={{ marginTop: '25px' }}>
       <div 
   className="video-banner position-relative"
   onMouseEnter={!isMobileDevice() ? handleMouseEnter : undefined}

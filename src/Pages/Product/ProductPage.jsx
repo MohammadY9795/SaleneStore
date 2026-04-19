@@ -21,6 +21,7 @@ export default function ProductPage() {
   const [size, setSize] = useState(product?.sizes[0] || "");
   const [currentReviewPage, setCurrentReviewPage] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [addingToCart, setAddingToCart] = useState(false);
   const reviewsPerPage = 5;
   const totalPages = product ? Math.ceil(product.reviews.length / reviewsPerPage) : 0;
   const currentReviews = product ? product.reviews.slice(
@@ -28,10 +29,57 @@ export default function ProductPage() {
     currentReviewPage * reviewsPerPage
   ) : [];
 
-  const handleAddToCart = () => {
-    addToCart(product, quantity, size);
-    setAddedToCart(true);
-    setTimeout(() => setAddedToCart(false), 2000);
+  const handleAddToCart = (event) => {
+    setAddingToCart(true);
+    
+    // Simulate brief loading for better UX
+    setTimeout(() => {
+      addToCart(product, quantity, size);
+      setAddedToCart(true);
+      setAddingToCart(false);
+      setTimeout(() => setAddedToCart(false), 2000);
+    }, 300);
+    
+    // Animation: fly product image to cart icon
+    const productImage = event.target.closest('.product-page-container').querySelector('img');
+    const cartIcon = document.querySelector('.cart-icon');
+    
+    if (productImage && cartIcon) {
+      const productRect = productImage.getBoundingClientRect();
+      const cartRect = cartIcon.getBoundingClientRect();
+      
+      const flyingElement = document.createElement('img');
+      flyingElement.src = product.images[0];
+      flyingElement.style.position = 'fixed';
+      flyingElement.style.left = (productRect.left + productRect.width / 2 - 25) + 'px';
+      flyingElement.style.top = (productRect.top + productRect.height / 2 - 25) + 'px';
+      flyingElement.style.width = '50px';
+      flyingElement.style.height = '50px';
+      flyingElement.style.zIndex = '1000';
+      flyingElement.style.pointerEvents = 'none';
+      flyingElement.style.borderRadius = '8px';
+      flyingElement.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
+      flyingElement.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      
+      document.body.appendChild(flyingElement);
+      
+      // Trigger animation after a short delay
+      setTimeout(() => {
+        flyingElement.style.left = (cartRect.left + cartRect.width / 2 - 10) + 'px';
+        flyingElement.style.top = (cartRect.top + cartRect.height / 2 - 10) + 'px';
+        flyingElement.style.width = '20px';
+        flyingElement.style.height = '20px';
+        flyingElement.style.opacity = '0.7';
+        flyingElement.style.transform = 'scale(0.5)';
+      }, 10);
+      
+      // Remove element after animation
+      setTimeout(() => {
+        if (document.body.contains(flyingElement)) {
+          document.body.removeChild(flyingElement);
+        }
+      }, 800);
+    }
   };
 
   // Early return after all hooks
@@ -228,8 +276,19 @@ export default function ProductPage() {
               </Form.Group>
 
               <div className="d-grid gap-2">
-                <Button variant="dark" size="lg" onClick={handleAddToCart}>
-                  {addedToCart ? "✓ Added to Cart!" : "Add to Cart"}
+                <Button variant="dark" size="lg" onClick={(e) => handleAddToCart(e)} disabled={addingToCart}>
+                  {addingToCart ? (
+                    <>
+                      <div className="spinner-border spinner-border-sm me-2" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                      Adding...
+                    </>
+                  ) : addedToCart ? (
+                    "✓ Added to Cart!"
+                  ) : (
+                    "Add to Cart"
+                  )}
                 </Button>
                 {addedToCart && (
                   <Button

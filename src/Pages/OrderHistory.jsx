@@ -23,11 +23,34 @@ const OrderHistory = () => {
   if (orders.length === 0) {
     return (
       <div className="order-history__empty">
-        <h2>No Orders Yet</h2>
-        <p>You haven't placed any orders yet. Start shopping!</p>
-        <Link to="/shop" className="btn btn--primary">
-          Continue Shopping
-        </Link>
+        <div className="order-history__empty-icon">
+          <i className="bi bi-receipt" aria-hidden="true"></i>
+        </div>
+        <h2>No orders yet</h2>
+        <p>You haven't placed any orders yet. Your fragrance journey starts here!</p>
+        <div className="order-history__empty-actions">
+          <Link to="/shop" className="btn btn--primary">
+            <i className="bi bi-shop me-2" aria-hidden="true"></i>
+            Start Shopping
+          </Link>
+        </div>
+        <div className="order-history__empty-tips">
+          <h3>Why choose SALENE?</h3>
+          <div className="order-history__empty-features">
+            <div className="feature">
+              <i className="bi bi-star-fill" aria-hidden="true"></i>
+              <span>Premium Quality</span>
+            </div>
+            <div className="feature">
+              <i className="bi bi-truck" aria-hidden="true"></i>
+              <span>Fast Delivery</span>
+            </div>
+            <div className="feature">
+              <i className="bi bi-shield-check" aria-hidden="true"></i>
+              <span>Authentic Products</span>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

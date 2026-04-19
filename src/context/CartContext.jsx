@@ -2,6 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
+export { CartContext };
+
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,7 +22,7 @@ export const CartProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  // Save cart to localStorage whenever it changes
+  // Save cart to localStorage whenever it changesz
   useEffect(() => {
     if (!loading) {
       localStorage.setItem("salene_cart", JSON.stringify(cart));

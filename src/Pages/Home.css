@@ -10,7 +10,6 @@
 
 .banner-thumbnail,
 .banner-video {
-  margin-top: 65px;
   object-fit: cover;
   height: 100%;
   width: 100%;

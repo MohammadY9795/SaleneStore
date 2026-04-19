@@ -98,7 +98,18 @@ const LoginRegister = () => {
             <input name="confirmPassword" value={registerData.confirmPassword} onChange={onRegisterChange} type="password" placeholder="Confirm Password" required />
 
             {error && <div style={{ color: "#ff6b6b", marginTop: 8 }}>{error}</div>}
-            <button type="submit" className="gold-border-btn" disabled={loading}>{loading ? "Please wait..." : "Sign Up"}</button>
+            <button type="submit" className="gold-border-btn" disabled={loading}>
+              {loading ? (
+                <>
+                  <div className="spinner-border spinner-border-sm me-2" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  Please wait...
+                </>
+              ) : (
+                "Sign Up"
+              )}
+            </button>
           </form>
         </div>
 
@@ -123,7 +134,18 @@ const LoginRegister = () => {
               Forgot your password?
             </button>
             {error && <div style={{ color: "#ff6b6b", marginTop: 8 }}>{error}</div>}
-            <button type="submit" className="gold-border-btn" disabled={loading}>{loading ? "Signing in..." : "Sign In"}</button>
+            <button type="submit" className="gold-border-btn" disabled={loading}>
+              {loading ? (
+                <>
+                  <div className="spinner-border spinner-border-sm me-2" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  Signing in...
+                </>
+              ) : (
+                "Sign In"
+              )}
+            </button>
           </form>
         </div>
 

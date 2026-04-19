@@ -6,17 +6,37 @@ import { BsBag, BsPerson } from 'react-icons/bs';
 import './CommonStyle.css';
 import Icon from '../assets/images/SALENE_LOGO.png';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 
 const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [isShopDropdownOpen, setIsShopDropdownOpen] = useState(false);
+  const [shopDropdownTimeout, setShopDropdownTimeout] = useState(null);
   const { user, logout } = useAuth();
+  const { getTotalItems } = useCart();
   const navigate = useNavigate();
+  const totalItems = getTotalItems();
   const profileDropdownRef = useRef(null);
 
   const closeSidebar = () => setSidebarOpen(false);
   const toggleSidebar = () => setSidebarOpen(v => !v);
+
+  // Handle shop dropdown with delay to prevent flickering
+  const handleShopDropdownEnter = () => {
+    if (shopDropdownTimeout) {
+      clearTimeout(shopDropdownTimeout);
+      setShopDropdownTimeout(null);
+    }
+    setIsShopDropdownOpen(true);
+  };
+
+  const handleShopDropdownLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsShopDropdownOpen(false);
+    }, 150); // 150ms delay before closing
+    setShopDropdownTimeout(timeout);
+  };
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -32,6 +52,15 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
 
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [profileDropdownOpen]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (shopDropdownTimeout) {
+        clearTimeout(shopDropdownTimeout);
+      }
+    };
+  }, [shopDropdownTimeout]);
 
   const handleLogout = () => {
     logout();
@@ -55,7 +84,7 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
     <>
       <Link to="/" className="nav-link-custom" onClick={onClick}>HOME</Link>
 
-      <div className="nav-item dropdown d-none d-md-inline-block" onMouseEnter={() => setIsShopDropdownOpen(true)} onMouseLeave={() => setIsShopDropdownOpen(false)}>
+      <div className="nav-item dropdown d-none d-md-inline-block" onMouseEnter={handleShopDropdownEnter} onMouseLeave={handleShopDropdownLeave}>
         <span className="nav-link-custom dropdown-toggle" id="shopDropdown">
           SHOP
         </span>
@@ -105,8 +134,26 @@ const NavbarComponent = ({ toggleDarkMode, darkMode }) => {
 
           {/* Right icons - cart/profile (profile hidden on mobile) */}
           <Col xs={3} md={4} className="d-flex justify-content-end align-items-center pe-3 gap-2">
-            <Link to="/cart" className="cart-icon text-white navbar-icon-link">
+            <Link to="/cart" className="cart-icon text-white navbar-icon-link position-relative">
               <BsBag size={20} />
+              {totalItems > 0 && (
+                <span 
+                  className="position-absolute top-0 start-100 translate-middle badge rounded-pill" 
+                  style={{ 
+                    fontSize: '0.7rem', 
+                    backgroundColor: '#d4af37', 
+                    color: '#000', 
+                    padding: '0.2em 0.4em',
+                    minWidth: '1.2em',
+                    height: '1.2em',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  {totalItems}
+                </span>
+              )}
             </Link>
 
             {user ? (

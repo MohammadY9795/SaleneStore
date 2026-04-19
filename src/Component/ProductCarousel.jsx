@@ -9,9 +9,12 @@ import prdct2 from "../assets/images/prdct2.png";
 import prdct3 from "../assets/images/prdct3.png";
 import prdct4 from "../assets/images/prdct4.png";
 
-const ProductCarousel = () => {
+const ProductCarousel = ({ products = [] }) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
+
+  // Use passed products or fallback to default carousel products
+  const displayProducts = products.length > 0 ? products : carouselProducts;
 
   const carouselProducts = [
     {
@@ -51,9 +54,65 @@ const ProductCarousel = () => {
     },
   ];
 
-  const handleBuyNow = (product) => {
+  const handleBuyNow = (product, event) => {
     addToCart(product, 1);
+    
+    // Animation: fly product image to cart icon
+    const productCard = event.target.closest('.item');
+    const cartIcon = document.querySelector('.cart-icon');
+    
+    if (productCard && cartIcon) {
+      const productRect = productCard.getBoundingClientRect();
+      const cartRect = cartIcon.getBoundingClientRect();
+      
+      const flyingElement = document.createElement('img');
+      flyingElement.src = product.image;
+      flyingElement.style.position = 'fixed';
+      flyingElement.style.left = (productRect.left + productRect.width / 2 - 25) + 'px';
+      flyingElement.style.top = (productRect.top + productRect.height / 2 - 25) + 'px';
+      flyingElement.style.width = '50px';
+      flyingElement.style.height = '50px';
+      flyingElement.style.zIndex = '1000';
+      flyingElement.style.pointerEvents = 'none';
+      flyingElement.style.borderRadius = '8px';
+      flyingElement.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
+      flyingElement.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      
+      document.body.appendChild(flyingElement);
+      
+      // Trigger animation after a short delay
+      setTimeout(() => {
+        flyingElement.style.left = (cartRect.left + cartRect.width / 2 - 10) + 'px';
+        flyingElement.style.top = (cartRect.top + cartRect.height / 2 - 10) + 'px';
+        flyingElement.style.width = '20px';
+        flyingElement.style.height = '20px';
+        flyingElement.style.opacity = '0.7';
+        flyingElement.style.transform = 'scale(0.5)';
+      }, 10);
+      
+      // Remove element after animation
+      setTimeout(() => {
+        if (document.body.contains(flyingElement)) {
+          document.body.removeChild(flyingElement);
+        }
+      }, 800);
+    }
+    
     navigate("/checkout");
+  };
+
+  const handleProductClick = (product) => {
+    // Map product id to slug for navigation
+    const slugMap = {
+      1: 'haio-alpha',
+      2: 'haio-date',
+      3: 'haio-day',
+      4: 'haio-night',
+      5: 'haio-sport'
+    };
+    
+    const slug = slugMap[product.id] || product.name.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+    navigate(`/product/${slug}`);
   };
   useEffect(() => {
     const slider = document.querySelector(".items");
@@ -135,24 +194,24 @@ const ProductCarousel = () => {
         Ha1o Collection
       </h2>
       <div className="items">
-        {carouselProducts.map((product, index) => (
+        {displayProducts.map((product, index) => (
           <div
             key={product.id}
             className={`item ${index === 0 ? "prev" : index === 1 ? "active" : index === 2 ? "next" : ""}`}
           >
-            <a href="#products" className="product-link" onClick={(e) => e.preventDefault()}>
+            <a href="#products" className="product-link" onClick={(e) => { e.preventDefault(); handleProductClick(product); }}>
               <img src={product.image} alt={product.name} />
               <img src={product.image} alt={`${product.name} - Hover`} className="hover-img" />
             </a>
             <div className="details">
               <h2>{product.name}</h2>
-              <p>{product.tagline}</p>
+              <p>{product.tagline || product.description}</p>
               <button
-                onClick={() => handleBuyNow(product)}
+                onClick={(e) => handleBuyNow(product, e)}
                 className="btn btn-light"
                 style={{ cursor: "pointer" }}
               >
-                BUY NOW
+                {product.buttonLabel || "BUY NOW"}
               </button>
             </div>
           </div>

@@ -17,6 +17,7 @@ import UserProfile from './Pages/UserProfile';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import ProtectedRoute from './Component/ProtectedRoute';
+import ScrollToTop from './Component/ScrollToTop';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -35,6 +36,7 @@ const App = () => {
      <AuthProvider>
        <CartProvider>
          <Router basename="/">
+           <ScrollToTop />
            {/* <Route
        r > */}
           <NavbarComponent toggleDarkMode={toggleDarkMode} darkMode={darkMode} />

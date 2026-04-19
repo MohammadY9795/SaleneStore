@@ -157,7 +157,16 @@ const ForgotPasswordModal = ({ isOpen, onClose, onPasswordReset }) => {
               onClick={handleFindUser}
               disabled={loading}
             >
-              {loading ? "Searching..." : "Find Account"}
+              {loading ? (
+                <>
+                  <div className="spinner-border spinner-border-sm me-2" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  Searching...
+                </>
+              ) : (
+                "Find Account"
+              )}
             </button>
           </div>
         )}
@@ -209,7 +218,16 @@ const ForgotPasswordModal = ({ isOpen, onClose, onPasswordReset }) => {
               onClick={handleSendOtp}
               disabled={loading}
             >
-              {loading ? "Sending OTP..." : "Send OTP"}
+              {loading ? (
+                <>
+                  <div className="spinner-border spinner-border-sm me-2" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  Sending OTP...
+                </>
+              ) : (
+                "Send OTP"
+              )}
             </button>
 
             <button className="btn-secondary-forgot" onClick={() => setStep(1)}>

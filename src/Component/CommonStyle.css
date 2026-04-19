@@ -545,7 +545,9 @@ section, header, footer, .container, .custom-carousel, .home-page {
   pointer-events: auto;
 }
 
-.nav-item:hover .custom-dropdown {
+/* Keep dropdown open when hovering over nav-item OR dropdown itself */
+.nav-item:hover .custom-dropdown,
+.custom-dropdown:hover {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;

@@ -89,11 +89,30 @@
   overflow-y: auto;
 }
 
-.no-addresses-message {
-  color: rgba(255, 255, 255, 0.6);
+.addresses-empty {
   text-align: center;
-  padding: 20px;
-  font-style: italic;
+  padding: 40px 20px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.addresses-empty-icon {
+  font-size: 3rem;
+  color: #d4af37;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.addresses-empty h3 {
+  color: #d4af37;
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.addresses-empty p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .address-card {

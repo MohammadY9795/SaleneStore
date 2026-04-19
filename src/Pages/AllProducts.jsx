@@ -1,7 +1,9 @@
-import { Container, Row, Col, Card, Dropdown, Form } from "react-bootstrap";
-import React, { useState } from "react";
+import { Container, Row, Col, Card, Dropdown, Form, Button } from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/AllProducts.css";
 import { Funnel } from "react-bootstrap-icons";
+import { CartContext } from "../context/CartContext";
 
 const mockProducts = [
   {
@@ -45,6 +47,9 @@ const mockProducts = [
 const AllProductsPage = () => {
   const [products, setProducts] = useState(mockProducts);
   const [sortLabel, setSortLabel] = useState("Featured");
+  const [addingToCart, setAddingToCart] = useState(new Set());
+  const { cart, addToCart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   const handleSort = (option) => {
     let sorted = [...products];
@@ -80,8 +85,70 @@ const AllProductsPage = () => {
     setProducts(sorted);
   };
 
+  const handleAddToCart = (product, event) => {
+    setAddingToCart(prev => new Set(prev).add(product.id));
+    
+    // Simulate brief loading for better UX
+    setTimeout(() => {
+      addToCart({ id: product.id, name: product.title, price: product.newPrice, imageUrl: product.image }, 1, "100 ML");
+      setAddingToCart(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(product.id);
+        return newSet;
+      });
+    }, 300);
+    
+    // Animation: fly product image to cart icon
+    const productCard = event.target.closest('.card');
+    const cartIcon = document.querySelector('.cart-icon');
+    
+    if (productCard && cartIcon) {
+      const productRect = productCard.getBoundingClientRect();
+      const cartRect = cartIcon.getBoundingClientRect();
+      
+      const flyingElement = document.createElement('img');
+      flyingElement.src = product.image;
+      flyingElement.style.position = 'fixed';
+      flyingElement.style.left = (productRect.left + productRect.width / 2 - 25) + 'px';
+      flyingElement.style.top = (productRect.top + productRect.height / 2 - 25) + 'px';
+      flyingElement.style.width = '50px';
+      flyingElement.style.height = '50px';
+      flyingElement.style.zIndex = '1000';
+      flyingElement.style.pointerEvents = 'none';
+      flyingElement.style.borderRadius = '8px';
+      flyingElement.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
+      flyingElement.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      
+      document.body.appendChild(flyingElement);
+      
+      // Trigger animation after a short delay
+      setTimeout(() => {
+        flyingElement.style.left = (cartRect.left + cartRect.width / 2 - 10) + 'px';
+        flyingElement.style.top = (cartRect.top + cartRect.height / 2 - 10) + 'px';
+        flyingElement.style.width = '20px';
+        flyingElement.style.height = '20px';
+        flyingElement.style.opacity = '0.7';
+        flyingElement.style.transform = 'scale(0.5)';
+      }, 10);
+      
+      // Remove element after animation
+      setTimeout(() => {
+        if (document.body.contains(flyingElement)) {
+          document.body.removeChild(flyingElement);
+        }
+      }, 800);
+    }
+  };
+
+  const handleBuyNow = (product) => {
+    if (cart.length === 0) {
+      addToCart({ id: product.id, name: product.title, price: product.newPrice, imageUrl: product.image }, 1, "100 ML");
+    }
+    navigate('/checkout');
+  };
+
   return (
-    <main>
+    <main style={{ marginTop: '25px' }}>
       {/* Banner */}
       <section className="mb-4 all-products-banner">
         <Container fluid className="p-0">
@@ -163,30 +230,69 @@ const AllProductsPage = () => {
 
       {/* Products Grid */}
       <Container fluid>
-        <Row className="g-4">
-          {products.map((product) => (
-            <Col key={product.id} xs={6} md={4} lg={3}>
-              <Card className="h-100 shadow-sm">
-                <Card.Img
-                  variant="top"
-                  src={product.image}
-                  alt={product.title}
-                />
-                <Card.Body>
-                  <Card.Title>{product.title}</Card.Title>
-                  <Card.Text>
-                    <span className="text-danger fw-bold">
-                      ₹{product.newPrice}
-                    </span>{" "}
-                    <span className="text-muted text-decoration-line-through ms-2">
-                      ₹{product.oldPrice}
-                    </span>
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+        {products.length === 0 ? (
+          <div className="products__empty">
+            <div className="products__empty-icon">
+              <i className="bi bi-search" aria-hidden="true"></i>
+            </div>
+            <h2>No products found</h2>
+            <p>We couldn't find any fragrances matching your criteria. Try adjusting your filters or browse our full collection.</p>
+            <div className="products__empty-actions">
+              <Button variant="primary" onClick={() => handleSort("manual")}>
+                <i className="bi bi-arrow-counterclockwise me-2" aria-hidden="true"></i>
+                Reset Filters
+              </Button>
+              <Button variant="outline-primary" onClick={() => window.location.href = "/catalogue"}>
+                <i className="bi bi-grid me-2" aria-hidden="true"></i>
+                View All Products
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <Row className="g-4">
+            {products.map((product) => (
+              <Col key={product.id} xs={6} md={4} lg={3}>
+                <Card className="h-100 shadow-sm">
+                  <Card.Img
+                    variant="top"
+                    src={product.image}
+                    alt={product.title}
+                  />
+                  <Card.Body>
+                    <Card.Title>{product.title}</Card.Title>
+                    <Card.Text>
+                      <span className="text-danger fw-bold">
+                        ₹{product.newPrice}
+                      </span>{" "}
+                      <span className="text-muted text-decoration-line-through ms-2">
+                        ₹{product.oldPrice}
+                      </span>
+                    </Card.Text>
+                    <div className="d-flex gap-2">
+                      <Button 
+                        variant="primary" 
+                        onClick={(e) => handleAddToCart(product, e)}
+                        disabled={addingToCart.has(product.id)}
+                      >
+                        {addingToCart.has(product.id) ? (
+                          <>
+                            <div className="spinner-border spinner-border-sm me-2" role="status">
+                              <span className="visually-hidden">Loading...</span>
+                            </div>
+                            Adding...
+                          </>
+                        ) : (
+                          "Add to Cart"
+                        )}
+                      </Button>
+                      <Button variant="success" onClick={() => handleBuyNow(product)}>Buy Now</Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        )}
       </Container>
     </main>
   );
